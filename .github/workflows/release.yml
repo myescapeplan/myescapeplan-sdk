@@ -1,0 +1,142 @@
+name: Release SDK packages
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Build and validate release artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: typescript/package-lock.json
+
+      - name: Build and validate npm package
+        working-directory: typescript
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci
+          npm run build
+          npm pack --dry-run --ignore-scripts
+          mkdir -p "$RUNNER_TEMP/mep-sdk-npm"
+          npm pack --ignore-scripts --pack-destination "$RUNNER_TEMP/mep-sdk-npm"
+          npm_tarball="$(find "$RUNNER_TEMP/mep-sdk-npm" -maxdepth 1 -type f -name '*.tgz' -print -quit)"
+          test -n "$npm_tarball"
+          mkdir -p "$RUNNER_TEMP/mep-sdk-node-consumer"
+          cd "$RUNNER_TEMP/mep-sdk-node-consumer"
+          npm init -y >/dev/null
+          npm install --ignore-scripts "$npm_tarball"
+          node --input-type=commonjs -e 'const sdk = require("@myescapeplan/sdk"); for (const name of ["Configuration", "BusinessTravelAPIApi"]) { if (typeof sdk[name] !== "function") throw new Error(name); }'
+          node --input-type=module -e 'import * as sdk from "@myescapeplan/sdk"; for (const name of ["Configuration", "BusinessTravelAPIApi"]) { if (typeof sdk[name] !== "function") throw new Error(name); }'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Verify release versions match the tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected_version="${GITHUB_REF_NAME#v}"
+          test "$(node -p "require('./typescript/package.json').version")" = "$expected_version"
+          EXPECTED_VERSION="$expected_version" python - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          expected = os.environ["EXPECTED_VERSION"]
+          text = Path("python/pyproject.toml").read_text(encoding="utf-8")
+          project = text.split("[project]", 1)[1].split("[build-system]", 1)[0]
+          match = re.search(r"(?m)^version\s*=\s*\"([^\"]+)\"\s*$", project)
+          if match is None:
+              raise SystemExit("python/pyproject.toml has no [project].version")
+          if match.group(1) != expected:
+              raise SystemExit(
+                  f"Python package version {match.group(1)!r} != release tag {expected!r}"
+              )
+          PY
+
+      - name: Build and validate Python package
+        working-directory: python
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip build twine
+          python -m build
+          python -m twine check dist/*
+          python -m venv "$RUNNER_TEMP/mep-sdk-python-venv"
+          "$RUNNER_TEMP/mep-sdk-python-venv/bin/python" -m pip install --upgrade pip
+          "$RUNNER_TEMP/mep-sdk-python-venv/bin/python" -m pip install dist/*.whl
+          "$RUNNER_TEMP/mep-sdk-python-venv/bin/python" -c "from myescapeplan import ApiClient, Configuration; from myescapeplan.api.business_travel_api_api import BusinessTravelAPIApi; assert ApiClient and Configuration and BusinessTravelAPIApi"
+
+      - name: Upload npm artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-package
+          path: ${{ runner.temp }}/mep-sdk-npm/*.tgz
+          if-no-files-found: error
+
+      - name: Upload Python artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-packages
+          path: python/dist/*
+          if-no-files-found: error
+
+  publish-npm:
+    name: Publish to npm
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Download npm artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: npm-package
+          path: npm-package
+
+      - name: Set up Node.js for npm Trusted Publishing
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Publish npm package
+        shell: bash
+        run: npm publish npm-package/*.tgz --access public
+
+  publish-pypi:
+    name: Publish to PyPI
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Download Python artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: python-packages
+          path: python-dist
+
+      - name: Publish to PyPI with Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: python-dist/

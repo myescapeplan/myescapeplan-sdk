@@ -1,0 +1,135 @@
+name: SDK CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: typescript/package-lock.json
+
+      - name: Build TypeScript SDK
+        working-directory: typescript
+        run: |
+          npm ci
+          npm run build
+          npm pack --dry-run --ignore-scripts
+
+      - name: Test packed TypeScript SDK consumption
+        working-directory: typescript
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/mep-sdk-npm"
+          npm pack --ignore-scripts --pack-destination "$RUNNER_TEMP/mep-sdk-npm"
+          mkdir -p "$RUNNER_TEMP/mep-sdk-node-consumer"
+          cd "$RUNNER_TEMP/mep-sdk-node-consumer"
+          npm init -y >/dev/null
+          npm install --ignore-scripts "$RUNNER_TEMP/mep-sdk-npm"/*.tgz
+          node --input-type=commonjs -e 'const sdk = require("@myescapeplan/sdk"); for (const name of ["Configuration", "BusinessTravelAPIApi"]) { if (typeof sdk[name] !== "function") throw new Error(name); }'
+          node --input-type=module -e 'import * as sdk from "@myescapeplan/sdk"; for (const name of ["Configuration", "BusinessTravelAPIApi"]) { if (typeof sdk[name] !== "function") throw new Error(name); }'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install and import Python SDK
+        working-directory: python
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install build twine openapi-spec-validator
+          python -m build
+          python -m twine check dist/*
+          python -m compileall -q myescapeplan
+          python -m venv "$RUNNER_TEMP/mep-sdk-python-venv"
+          "$RUNNER_TEMP/mep-sdk-python-venv/bin/python" -m pip install --upgrade pip
+          "$RUNNER_TEMP/mep-sdk-python-venv/bin/python" -m pip install dist/*.whl
+          "$RUNNER_TEMP/mep-sdk-python-venv/bin/python" -c "from myescapeplan import ApiClient, Configuration; from myescapeplan.api.business_travel_api_api import BusinessTravelAPIApi; assert ApiClient and Configuration and BusinessTravelAPIApi"
+
+      - name: Verify OpenAPI snapshot and generated surface
+        run: |
+          openapi-spec-validator openapi/openapi.json
+          openapi-spec-validator openapi/sdk-v0.1.json
+          python - <<'PY'
+          import copy
+          import json
+          from pathlib import Path
+
+          canonical = json.loads(Path("openapi/openapi.json").read_text())
+          sdk_spec = json.loads(Path("openapi/sdk-v0.1.json").read_text())
+          assert canonical["openapi"].startswith("3.1.")
+          assert canonical["servers"] == [{"url": "https://api.myescapeplan.app"}]
+
+          expected_sdk_spec = copy.deepcopy(canonical)
+          expected_sdk_spec["paths"].pop(
+              "/api/v1/business/searches/{search_id}/events",
+              None,
+          )
+          assert sdk_spec == expected_sdk_spec
+
+          for manifest_name in (
+              "typescript/.mep-generated-files.json",
+              "python/.mep-generated-files.json",
+          ):
+              manifest = json.loads(Path(manifest_name).read_text())
+              assert manifest["sourceContract"] == "openapi/sdk-v0.1.json"
+              assert manifest["canonicalContract"] == "openapi/openapi.json"
+              assert all(Path(manifest_name).parent.joinpath(path).exists() for path in manifest["files"])
+
+          assert Path("typescript/LICENSE").read_text().startswith("MIT License")
+          assert Path("python/LICENSE").read_text().startswith("MIT License")
+          assert json.loads(Path("typescript/package.json").read_text())["version"] == "0.1.0"
+
+          expected = {
+              "createDiscovery",
+              "lookupDestinations",
+              "createSearch",
+              "listSearches",
+              "getUsage",
+              "getSearch",
+              "getSearchResults",
+              "getSearchResult",
+              "getSearchResultDetails",
+              "cancelSearch",
+          }
+          actual = {
+              operation["operationId"]
+              for path_item in sdk_spec["paths"].values()
+              for method, operation in path_item.items()
+              if method.lower() in {"get", "post", "put", "patch", "delete"}
+              and operation["operationId"] != "streamSearchEvents"
+          }
+          assert actual == expected
+          assert "streamSearchEvents" in {
+              operation["operationId"]
+              for path_item in canonical["paths"].values()
+              for method, operation in path_item.items()
+              if method.lower() in {"get", "post", "put", "patch", "delete"}
+          }
+
+          typescript = Path("typescript/src/apis/BusinessTravelAPIApi.ts").read_text()
+          python = Path(
+              "python/myescapeplan/api/business_travel_api_api.py"
+          ).read_text()
+          assert "streamSearchEvents" not in typescript
+          assert "stream_search_events" not in python
+          for operation_id in expected:
+              assert f"async {operation_id}" in typescript
+          for operation_id in expected:
+              snake_case = []
+              for index, character in enumerate(operation_id):
+                  if character.isupper() and index:
+                      snake_case.append("_")
+                  snake_case.append(character.lower())
+              assert f"async def {''.join(snake_case)}" in python
+          PY

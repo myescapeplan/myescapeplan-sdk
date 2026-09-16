@@ -1,0 +1,6933 @@
+{
+  "components": {
+    "schemas": {
+      "AffiliateLink": {
+        "properties": {
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "company": {
+            "title": "Company",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "offer_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Offer Ref"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "target_url": {
+            "title": "Target Url",
+            "type": "string"
+          },
+          "tracking_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tracking Url"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "name",
+          "target_url",
+          "category",
+          "provider",
+          "company"
+        ],
+        "title": "AffiliateLink",
+        "type": "object"
+      },
+      "AirportRef": {
+        "properties": {
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "iata": {
+            "title": "Iata",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "iata",
+          "name",
+          "city",
+          "country"
+        ],
+        "title": "AirportRef",
+        "type": "object"
+      },
+      "AmenityType": {
+        "enum": [
+          "FREE_WIFI",
+          "POOL",
+          "AIR_CONDITIONING",
+          "PARKING",
+          "PETS_ALLOWED",
+          "SPA",
+          "GYM",
+          "BREAKFAST_INCLUDED",
+          "RESTAURANT",
+          "BAR",
+          "ROOM_SERVICE",
+          "WHEELCHAIR_ACCESSIBLE",
+          "LAUNDRY",
+          "KITCHEN",
+          "HOT_TUB",
+          "BEACH_ACCESS",
+          "ALL_INCLUSIVE",
+          "CHILD_FRIENDLY",
+          "INDOOR_POOL",
+          "OUTDOOR_POOL"
+        ],
+        "title": "AmenityType",
+        "type": "string"
+      },
+      "BusinessApiError": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "details": {
+            "additionalProperties": true,
+            "title": "Details",
+            "type": "object"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "retryable": {
+            "default": false,
+            "title": "Retryable",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "BusinessApiError",
+        "type": "object"
+      },
+      "BusinessConcurrencyUsage": {
+        "properties": {
+          "active": {
+            "minimum": 0.0,
+            "title": "Active",
+            "type": "integer"
+          },
+          "limit": {
+            "minimum": 1.0,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "remaining": {
+            "minimum": 0.0,
+            "title": "Remaining",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "active",
+          "limit",
+          "remaining"
+        ],
+        "title": "BusinessConcurrencyUsage",
+        "type": "object"
+      },
+      "BusinessDateOption": {
+        "properties": {
+          "date_option_id": {
+            "title": "Date Option Id",
+            "type": "string"
+          },
+          "date_type": {
+            "default": "unknown",
+            "title": "Date Type",
+            "type": "string"
+          },
+          "end_date": {
+            "format": "date",
+            "title": "End Date",
+            "type": "string"
+          },
+          "flights": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BusinessTrackSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hotels": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BusinessTrackSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nights": {
+            "minimum": 1.0,
+            "title": "Nights",
+            "type": "integer"
+          },
+          "price_insights": {
+            "items": {
+              "$ref": "#/components/schemas/PriceInsight"
+            },
+            "title": "Price Insights",
+            "type": "array"
+          },
+          "pricing": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BusinessPrice"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "primary_price_insight": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PriceInsight"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rentals": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BusinessTrackSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "start_date": {
+            "format": "date",
+            "title": "Start Date",
+            "type": "string"
+          },
+          "status": {
+            "default": "pending",
+            "enum": [
+              "pending",
+              "available",
+              "partial",
+              "unavailable",
+              "failed",
+              "error",
+              "skipped"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "unpriced_reason": {
+            "anyOf": [
+              {
+                "const": "search_budget_reached",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unpriced Reason"
+          }
+        },
+        "required": [
+          "date_option_id",
+          "start_date",
+          "end_date",
+          "nights"
+        ],
+        "title": "BusinessDateOption",
+        "type": "object"
+      },
+      "BusinessDetailDateOption": {
+        "description": "Date-option detail without the disabled event inventory track.",
+        "properties": {
+          "candidate_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Candidate Id"
+          },
+          "date_option_kind": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DateOptionKind"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": "alternative"
+          },
+          "dates": {
+            "$ref": "#/components/schemas/DateRange"
+          },
+          "flight_summary": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DateOptionComponentSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hotel_summary": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DateOptionComponentSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "price_insights": {
+            "items": {
+              "$ref": "#/components/schemas/PriceInsight"
+            },
+            "title": "Price Insights",
+            "type": "array"
+          },
+          "primary_price_insight": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PriceInsight"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rental_summary": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DateOptionComponentSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "required_categories": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Required Categories"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "total_price": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TripPrice"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "dates"
+        ],
+        "title": "BusinessDetailDateOption",
+        "type": "object"
+      },
+      "BusinessErrorEnvelope": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/BusinessApiError"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "BusinessErrorEnvelope",
+        "type": "object"
+      },
+      "BusinessJobLinks": {
+        "properties": {
+          "cancel": {
+            "title": "Cancel",
+            "type": "string"
+          },
+          "events": {
+            "title": "Events",
+            "type": "string"
+          },
+          "results": {
+            "title": "Results",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "cancel",
+          "results",
+          "events"
+        ],
+        "title": "BusinessJobLinks",
+        "type": "object"
+      },
+      "BusinessJobResource": {
+        "properties": {
+          "client_reference": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Reference"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "environment": {
+            "enum": [
+              "test",
+              "live"
+            ],
+            "title": "Environment",
+            "type": "string"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BusinessApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "links": {
+            "$ref": "#/components/schemas/BusinessJobLinks"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "status": {
+            "$ref": "#/components/schemas/BusinessJobStatus"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "environment",
+          "created_at",
+          "links"
+        ],
+        "title": "BusinessJobResource",
+        "type": "object"
+      },
+      "BusinessJobStatus": {
+        "enum": [
+          "queued",
+          "planning",
+          "running",
+          "completed",
+          "partial",
+          "failed",
+          "cancelled"
+        ],
+        "title": "BusinessJobStatus",
+        "type": "string"
+      },
+      "BusinessPrice": {
+        "properties": {
+          "basis": {
+            "default": "unknown",
+            "enum": [
+              "voyager_summary_total",
+              "date_option_total",
+              "component_minimum",
+              "unknown"
+            ],
+            "title": "Basis",
+            "type": "string"
+          },
+          "bookable_package_price": {
+            "default": false,
+            "title": "Bookable Package Price",
+            "type": "boolean"
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "total": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total"
+          }
+        },
+        "title": "BusinessPrice",
+        "type": "object"
+      },
+      "BusinessRateLimits": {
+        "properties": {
+          "discovery_per_minute": {
+            "minimum": 1.0,
+            "title": "Discovery Per Minute",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "discovery_per_minute"
+        ],
+        "title": "BusinessRateLimits",
+        "type": "object"
+      },
+      "BusinessResultDates": {
+        "description": "Verified stay window. A bare dict here would document as a free-form map.",
+        "properties": {
+          "end_date": {
+            "format": "date",
+            "title": "End Date",
+            "type": "string"
+          },
+          "start_date": {
+            "format": "date",
+            "title": "Start Date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "title": "BusinessResultDates",
+        "type": "object"
+      },
+      "BusinessResultDetail": {
+        "description": "Rich Business result detail backed by the consumer result contract.",
+        "properties": {
+          "affiliate_links": {
+            "items": {
+              "$ref": "#/components/schemas/AffiliateLink"
+            },
+            "title": "Affiliate Links",
+            "type": "array"
+          },
+          "destination_access": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DestinationAccessSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "detail": {
+            "$ref": "#/components/schemas/BusinessTripResultDetail"
+          },
+          "flights": {
+            "items": {
+              "$ref": "#/components/schemas/SlimStandardizedFlightOffer"
+            },
+            "title": "Flights",
+            "type": "array"
+          },
+          "has_more_flights": {
+            "default": false,
+            "title": "Has More Flights",
+            "type": "boolean"
+          },
+          "has_more_hotels": {
+            "default": false,
+            "title": "Has More Hotels",
+            "type": "boolean"
+          },
+          "has_more_rentals": {
+            "default": false,
+            "title": "Has More Rentals",
+            "type": "boolean"
+          },
+          "hotels": {
+            "items": {
+              "$ref": "#/components/schemas/SlimStandardizedStay"
+            },
+            "title": "Hotels",
+            "type": "array"
+          },
+          "rentals": {
+            "items": {
+              "$ref": "#/components/schemas/SlimStandardizedStay"
+            },
+            "title": "Rentals",
+            "type": "array"
+          },
+          "result": {
+            "$ref": "#/components/schemas/BusinessSearchResult"
+          },
+          "weather": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WeatherHint"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "weather_data": {
+            "items": {
+              "$ref": "#/components/schemas/WeatherObservation"
+            },
+            "title": "Weather Data",
+            "type": "array"
+          },
+          "weather_status": {
+            "default": "unavailable",
+            "enum": [
+              "available",
+              "unavailable",
+              "partial",
+              "failed",
+              "pending",
+              "not_requested"
+            ],
+            "title": "Weather Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result",
+          "detail"
+        ],
+        "title": "BusinessResultDetail",
+        "type": "object"
+      },
+      "BusinessSearchCreateRequest": {
+        "additionalProperties": false,
+        "description": "Detached verified search over the shared Business travel intent.",
+        "properties": {
+          "budget": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DiscoveryBudget"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "budget_tier": {
+            "anyOf": [
+              {
+                "enum": [
+                  "budget",
+                  "standard",
+                  "premium"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Budget Tier"
+          },
+          "categories": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 10,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Categories"
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "maxLength": 3,
+                "minLength": 3,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "date_option_id": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Option Id"
+          },
+          "dates": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DiscoveryDates"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "destination_airport_iata_codes": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 32,
+            "title": "Destination Airport Iata Codes",
+            "type": "array"
+          },
+          "destination_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "maxItems": 50,
+            "title": "Destination Ids",
+            "type": "array"
+          },
+          "discovery_id": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Discovery Id"
+          },
+          "flight": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StructuredFlight"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "include_images": {
+            "default": true,
+            "description": "Whether destination and offer image metadata should be included in results and details.",
+            "title": "Include Images",
+            "type": "boolean"
+          },
+          "language": {
+            "default": "en",
+            "maxLength": 10,
+            "title": "Language",
+            "type": "string"
+          },
+          "max_results": {
+            "default": 10,
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Max Results",
+            "type": "integer"
+          },
+          "opportunity_id": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Opportunity Id"
+          },
+          "origin": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DiscoveryOrigin"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "party": {
+            "$ref": "#/components/schemas/DiscoveryParty"
+          },
+          "preferences": {
+            "$ref": "#/components/schemas/DiscoveryPreferences"
+          },
+          "query": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Query"
+          },
+          "stay": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StructuredStay"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "title": "BusinessSearchCreateRequest",
+        "type": "object"
+      },
+      "BusinessSearchListResponse": {
+        "properties": {
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor"
+          },
+          "searches": {
+            "items": {
+              "$ref": "#/components/schemas/BusinessJobResource"
+            },
+            "title": "Searches",
+            "type": "array"
+          }
+        },
+        "title": "BusinessSearchListResponse",
+        "type": "object"
+      },
+      "BusinessSearchResult": {
+        "properties": {
+          "component_pricing": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/BusinessPrice"
+            },
+            "title": "Component Pricing",
+            "type": "object"
+          },
+          "data_status": {
+            "additionalProperties": true,
+            "title": "Data Status",
+            "type": "object"
+          },
+          "date_options": {
+            "items": {
+              "$ref": "#/components/schemas/BusinessDateOption"
+            },
+            "title": "Date Options",
+            "type": "array"
+          },
+          "dates": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BusinessResultDates"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "destination_access": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DestinationAccessSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "destination_id": {
+            "format": "uuid",
+            "title": "Destination Id",
+            "type": "string"
+          },
+          "details_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Details Url"
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
+          },
+          "features": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "flights": {
+            "$ref": "#/components/schemas/BusinessTrackSummary"
+          },
+          "hotels": {
+            "$ref": "#/components/schemas/BusinessTrackSummary"
+          },
+          "images": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ImageObject"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Images"
+          },
+          "price_insights": {
+            "items": {
+              "$ref": "#/components/schemas/PriceInsight"
+            },
+            "title": "Price Insights",
+            "type": "array"
+          },
+          "pricing": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BusinessPrice"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rank": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rank"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "rentals": {
+            "$ref": "#/components/schemas/BusinessTrackSummary"
+          },
+          "requested_categories": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Requested Categories",
+            "type": "array"
+          },
+          "result_id": {
+            "title": "Result Id",
+            "type": "string"
+          },
+          "verified_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verified At"
+          },
+          "weather": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WeatherHint"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "weather_data": {
+            "items": {
+              "$ref": "#/components/schemas/WeatherObservation"
+            },
+            "title": "Weather Data",
+            "type": "array"
+          },
+          "weather_status": {
+            "default": "unavailable",
+            "enum": [
+              "available",
+              "unavailable",
+              "partial",
+              "failed",
+              "pending",
+              "not_requested"
+            ],
+            "title": "Weather Status",
+            "type": "string"
+          },
+          "weather_summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Weather Summary"
+          }
+        },
+        "required": [
+          "result_id",
+          "destination_id",
+          "flights",
+          "hotels",
+          "rentals"
+        ],
+        "title": "BusinessSearchResult",
+        "type": "object"
+      },
+      "BusinessSearchResultsResponse": {
+        "properties": {
+          "generated_at": {
+            "format": "date-time",
+            "title": "Generated At",
+            "type": "string"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/BusinessSearchResult"
+            },
+            "title": "Results",
+            "type": "array"
+          },
+          "search_id": {
+            "format": "uuid",
+            "title": "Search Id",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/BusinessJobStatus"
+          }
+        },
+        "required": [
+          "search_id",
+          "status",
+          "generated_at",
+          "results"
+        ],
+        "title": "BusinessSearchResultsResponse",
+        "type": "object"
+      },
+      "BusinessTrackSummary": {
+        "properties": {
+          "currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "min_total": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Total"
+          },
+          "option_count": {
+            "default": 0,
+            "title": "Option Count",
+            "type": "integer"
+          },
+          "price_basis": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Basis"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "status": {
+            "enum": [
+              "available",
+              "unavailable",
+              "partial",
+              "failed",
+              "not_requested",
+              "pending"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "BusinessTrackSummary",
+        "type": "object"
+      },
+      "BusinessTripResultDetail": {
+        "description": "Consumer detail projection with event inventory intentionally disabled.",
+        "properties": {
+          "affiliate_links": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/AffiliateLink"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Affiliate Links"
+          },
+          "airport_refs": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AirportRef"
+            },
+            "title": "Airport Refs",
+            "type": "object"
+          },
+          "date_options": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/BusinessDetailDateOption"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Options"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "destination_access": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DestinationAccessSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "destination_reason": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DestinationReasonPayload"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
+          },
+          "error_message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Message"
+          },
+          "flights": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/FlightDetail"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Flights"
+          },
+          "has_more_flights": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Has More Flights"
+          },
+          "has_more_hotels": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Has More Hotels"
+          },
+          "has_more_vacation_rentals": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Has More Vacation Rentals"
+          },
+          "hotels": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/StayDetail"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hotels"
+          },
+          "images": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ImageObject"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Images"
+          },
+          "price_insights": {
+            "items": {
+              "$ref": "#/components/schemas/PriceInsight"
+            },
+            "title": "Price Insights",
+            "type": "array"
+          },
+          "primary_price_insight": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PriceInsight"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "rentals": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/StayDetail"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rentals"
+          },
+          "requested_categories": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Categories"
+          },
+          "run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Id"
+          },
+          "search_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Search Id"
+          },
+          "spec_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Spec Hash"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "total_flights_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Flights Count"
+          },
+          "total_hotels_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Hotels Count"
+          },
+          "total_price": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TripPrice"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "total_vacation_rentals_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Vacation Rentals Count"
+          },
+          "trip_dates": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DateRange"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "BusinessTripResultDetail",
+        "type": "object"
+      },
+      "BusinessUsageCounter": {
+        "properties": {
+          "allowance": {
+            "minimum": 1.0,
+            "title": "Allowance",
+            "type": "integer"
+          },
+          "remaining": {
+            "minimum": 0.0,
+            "title": "Remaining",
+            "type": "integer"
+          },
+          "used": {
+            "minimum": 0.0,
+            "title": "Used",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "used",
+          "allowance",
+          "remaining"
+        ],
+        "title": "BusinessUsageCounter",
+        "type": "object"
+      },
+      "BusinessUsagePeriod": {
+        "properties": {
+          "end": {
+            "format": "date-time",
+            "title": "End",
+            "type": "string"
+          },
+          "start": {
+            "format": "date-time",
+            "title": "Start",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start",
+          "end"
+        ],
+        "title": "BusinessUsagePeriod",
+        "type": "object"
+      },
+      "BusinessUsageResponse": {
+        "properties": {
+          "allowance_scope": {
+            "default": "client",
+            "enum": [
+              "client",
+              "account"
+            ],
+            "title": "Allowance Scope",
+            "type": "string"
+          },
+          "as_of": {
+            "format": "date-time",
+            "title": "As Of",
+            "type": "string"
+          },
+          "concurrency": {
+            "$ref": "#/components/schemas/BusinessConcurrencyUsage"
+          },
+          "discovery": {
+            "$ref": "#/components/schemas/BusinessUsageCounter"
+          },
+          "environment": {
+            "enum": [
+              "test",
+              "live"
+            ],
+            "title": "Environment",
+            "type": "string"
+          },
+          "period": {
+            "$ref": "#/components/schemas/BusinessUsagePeriod"
+          },
+          "plan_tier": {
+            "enum": [
+              "trial",
+              "starter",
+              "growth",
+              "scale"
+            ],
+            "title": "Plan Tier",
+            "type": "string"
+          },
+          "rate_limits": {
+            "$ref": "#/components/schemas/BusinessRateLimits"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes",
+            "type": "array"
+          },
+          "verified_searches": {
+            "$ref": "#/components/schemas/BusinessVerifiedSearchUsage"
+          }
+        },
+        "required": [
+          "environment",
+          "plan_tier",
+          "period",
+          "discovery",
+          "verified_searches",
+          "concurrency",
+          "rate_limits",
+          "as_of"
+        ],
+        "title": "BusinessUsageResponse",
+        "type": "object"
+      },
+      "BusinessVerifiedSearchUsage": {
+        "properties": {
+          "allowance": {
+            "minimum": 1.0,
+            "title": "Allowance",
+            "type": "integer"
+          },
+          "allowance_used": {
+            "minimum": 0.0,
+            "title": "Allowance Used",
+            "type": "integer"
+          },
+          "consumed": {
+            "minimum": 0.0,
+            "title": "Consumed",
+            "type": "integer"
+          },
+          "remaining": {
+            "minimum": 0.0,
+            "title": "Remaining",
+            "type": "integer"
+          },
+          "reserved": {
+            "minimum": 0.0,
+            "title": "Reserved",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "consumed",
+          "reserved",
+          "allowance_used",
+          "allowance",
+          "remaining"
+        ],
+        "title": "BusinessVerifiedSearchUsage",
+        "type": "object"
+      },
+      "DateOptionComponentSummary": {
+        "description": "Lightweight component inventory for one exact date option.\n\nComponent metadata is deliberately scoped to the DateOption instead of the\ndestination card. This prevents a selected sibling date from displaying a\nflight/stay count or \"from\" price that belongs to another date variant.\n\nKeep property/destination metadata such as amenities, images, descriptions,\nreviews, and static events OUT of this model. Those are deduped at their\nnatural property/destination scope and selected by candidate/date identity.",
+        "properties": {
+          "min_price": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TripPrice"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "option_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Option Count"
+          }
+        },
+        "title": "DateOptionComponentSummary",
+        "type": "object"
+      },
+      "DateOptionKind": {
+        "enum": [
+          "requested",
+          "nearby",
+          "alternative",
+          "defaulted"
+        ],
+        "title": "DateOptionKind",
+        "type": "string"
+      },
+      "DateRange": {
+        "additionalProperties": false,
+        "description": "Represents a range between two dates (inclusive).\n\nAttributes:\n    start_date (datetime.date): The start of the date range.\n    end_date (datetime.date): The end of the date range.",
+        "properties": {
+          "end_date": {
+            "format": "date",
+            "title": "End Date",
+            "type": "string"
+          },
+          "start_date": {
+            "format": "date",
+            "title": "Start Date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "title": "DateRange",
+        "type": "object"
+      },
+      "DestinationAccessSummary": {
+        "properties": {
+          "confidence": {
+            "default": "medium",
+            "title": "Confidence",
+            "type": "string"
+          },
+          "crosses_border": {
+            "default": false,
+            "title": "Crosses Border",
+            "type": "boolean"
+          },
+          "destination_name": {
+            "title": "Destination Name",
+            "type": "string"
+          },
+          "destination_place_id": {
+            "title": "Destination Place Id",
+            "type": "string"
+          },
+          "estimated_duration_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Estimated Duration Minutes"
+          },
+          "gateway_name": {
+            "title": "Gateway Name",
+            "type": "string"
+          },
+          "gateway_place_id": {
+            "title": "Gateway Place Id",
+            "type": "string"
+          },
+          "summary_text": {
+            "title": "Summary Text",
+            "type": "string"
+          },
+          "transfer_mode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transfer Mode"
+          }
+        },
+        "required": [
+          "gateway_place_id",
+          "gateway_name",
+          "destination_place_id",
+          "destination_name",
+          "summary_text"
+        ],
+        "title": "DestinationAccessSummary",
+        "type": "object"
+      },
+      "DestinationReasonPayload": {
+        "properties": {
+          "detailed_reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Detailed Reasons",
+            "type": "array"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Summary"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          }
+        },
+        "title": "DestinationReasonPayload",
+        "type": "object"
+      },
+      "DiscoveryBudget": {
+        "additionalProperties": false,
+        "properties": {
+          "amount": {
+            "exclusiveMinimum": 0.0,
+            "title": "Amount",
+            "type": "integer"
+          },
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "title": "Currency",
+            "type": "string"
+          },
+          "min_amount": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Amount"
+          },
+          "scope": {
+            "default": "per_person",
+            "enum": [
+              "total",
+              "per_person",
+              "nightly",
+              "unknown"
+            ],
+            "title": "Scope",
+            "type": "string"
+          }
+        },
+        "required": [
+          "amount",
+          "currency"
+        ],
+        "title": "DiscoveryBudget",
+        "type": "object"
+      },
+      "DiscoveryDateBound": {
+        "additionalProperties": false,
+        "properties": {
+          "earliest": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Earliest"
+          },
+          "latest": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest"
+          }
+        },
+        "title": "DiscoveryDateBound",
+        "type": "object"
+      },
+      "DiscoveryDateOption": {
+        "additionalProperties": false,
+        "properties": {
+          "date_option_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Option Id"
+          },
+          "date_type": {
+            "default": "unknown",
+            "enum": [
+              "primary",
+              "flexible_window",
+              "nearby_alternative",
+              "unknown"
+            ],
+            "title": "Date Type",
+            "type": "string"
+          },
+          "end_date": {
+            "format": "date",
+            "title": "End Date",
+            "type": "string"
+          },
+          "nights": {
+            "minimum": 1.0,
+            "title": "Nights",
+            "type": "integer"
+          },
+          "start_date": {
+            "format": "date",
+            "title": "Start Date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date",
+          "nights"
+        ],
+        "title": "DiscoveryDateOption",
+        "type": "object"
+      },
+      "DiscoveryDates": {
+        "additionalProperties": false,
+        "properties": {
+          "date_text": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Text"
+          },
+          "duration_nights": {
+            "anyOf": [
+              {
+                "maximum": 90.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Nights"
+          },
+          "end": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DiscoveryDateBound"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "outer_window": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DiscoveryOuterWindow"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "start": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DiscoveryDateBound"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Date"
+          }
+        },
+        "title": "DiscoveryDates",
+        "type": "object"
+      },
+      "DiscoveryDestination": {
+        "additionalProperties": false,
+        "properties": {
+          "country_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country Code"
+          },
+          "country_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country Name"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageObject"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kind"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "region": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region"
+          },
+          "subtitle": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subtitle"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "display_name"
+        ],
+        "title": "DiscoveryDestination",
+        "type": "object"
+      },
+      "DiscoveryDestinationLookupResponse": {
+        "additionalProperties": false,
+        "description": "Public destination lookup result for clients authoring destination_ids.",
+        "properties": {
+          "destinations": {
+            "items": {
+              "$ref": "#/components/schemas/DiscoveryDestinationReference"
+            },
+            "title": "Destinations",
+            "type": "array"
+          },
+          "query": {
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "DiscoveryDestinationLookupResponse",
+        "type": "object"
+      },
+      "DiscoveryDestinationReference": {
+        "additionalProperties": false,
+        "description": "Canonical destination identity from the active Discovery planner snapshot.",
+        "properties": {
+          "country_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country Code"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kind"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "maximum": 90.0,
+                "minimum": -90.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "lon": {
+            "anyOf": [
+              {
+                "maximum": 180.0,
+                "minimum": -180.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lon"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "display_name"
+        ],
+        "title": "DiscoveryDestinationReference",
+        "type": "object"
+      },
+      "DiscoveryFit": {
+        "additionalProperties": false,
+        "description": "Stable qualitative fit. Raw planner scores are deliberately private.",
+        "properties": {
+          "label": {
+            "default": "unknown",
+            "enum": [
+              "strong",
+              "possible",
+              "stretch",
+              "unknown"
+            ],
+            "title": "Label",
+            "type": "string"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "title": "DiscoveryFit",
+        "type": "object"
+      },
+      "DiscoveryInterpretation": {
+        "additionalProperties": false,
+        "properties": {
+          "adults": {
+            "default": 1,
+            "title": "Adults",
+            "type": "integer"
+          },
+          "budget_amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Budget Amount"
+          },
+          "budget_currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Budget Currency"
+          },
+          "budget_scope": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Budget Scope"
+          },
+          "categories": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Categories",
+            "type": "array"
+          },
+          "children": {
+            "default": 0,
+            "title": "Children",
+            "type": "integer"
+          },
+          "date_mode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Mode"
+          },
+          "date_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Text"
+          },
+          "duration_nights": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Nights"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "origin": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Origin"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Date"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Warnings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "title": "DiscoveryInterpretation",
+        "type": "object"
+      },
+      "DiscoveryMeta": {
+        "additionalProperties": false,
+        "properties": {
+          "candidate_count": {
+            "default": 0,
+            "minimum": 0.0,
+            "title": "Candidate Count",
+            "type": "integer"
+          },
+          "contract_version": {
+            "const": "travel.discovery.v1",
+            "default": "travel.discovery.v1",
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "snapshot_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Snapshot Version"
+          },
+          "usage": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DiscoveryUsage"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "title": "DiscoveryMeta",
+        "type": "object"
+      },
+      "DiscoveryOpportunity": {
+        "additionalProperties": false,
+        "properties": {
+          "date_options": {
+            "items": {
+              "$ref": "#/components/schemas/DiscoveryDateOption"
+            },
+            "title": "Date Options",
+            "type": "array"
+          },
+          "destination": {
+            "$ref": "#/components/schemas/DiscoveryDestination"
+          },
+          "destination_airport_iata_codes": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 32,
+            "title": "Destination Airport Iata Codes",
+            "type": "array"
+          },
+          "fit": {
+            "$ref": "#/components/schemas/DiscoveryFit"
+          },
+          "opportunity_id": {
+            "title": "Opportunity Id",
+            "type": "string"
+          },
+          "origin_airport_iata_codes": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 32,
+            "title": "Origin Airport Iata Codes",
+            "type": "array"
+          },
+          "rank": {
+            "minimum": 1.0,
+            "title": "Rank",
+            "type": "integer"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "search_inputs_available": {
+            "$ref": "#/components/schemas/DiscoverySearchInputsAvailable"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          },
+          "verification_status": {
+            "const": "not_verified",
+            "default": "not_verified",
+            "title": "Verification Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "opportunity_id",
+          "destination",
+          "rank"
+        ],
+        "title": "DiscoveryOpportunity",
+        "type": "object"
+      },
+      "DiscoveryOrigin": {
+        "additionalProperties": false,
+        "description": "Stable origin input independent of consumer planning artifacts.",
+        "properties": {
+          "airport_iata_codes": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 32,
+            "title": "Airport Iata Codes",
+            "type": "array"
+          },
+          "country_code": {
+            "anyOf": [
+              {
+                "maxLength": 2,
+                "minLength": 2,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country Code"
+          },
+          "iata_code": {
+            "anyOf": [
+              {
+                "maxLength": 3,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Iata Code"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "maximum": 90.0,
+                "minimum": -90.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "lon": {
+            "anyOf": [
+              {
+                "maximum": 180.0,
+                "minimum": -180.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lon"
+          },
+          "place_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Place Id"
+          },
+          "query": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Query"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "maxLength": 50,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          }
+        },
+        "title": "DiscoveryOrigin",
+        "type": "object"
+      },
+      "DiscoveryOuterWindow": {
+        "additionalProperties": false,
+        "properties": {
+          "end_date": {
+            "format": "date",
+            "title": "End Date",
+            "type": "string"
+          },
+          "start_date": {
+            "format": "date",
+            "title": "Start Date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "title": "DiscoveryOuterWindow",
+        "type": "object"
+      },
+      "DiscoveryParty": {
+        "additionalProperties": false,
+        "properties": {
+          "adults": {
+            "default": 1,
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Adults",
+            "type": "integer"
+          },
+          "children": {
+            "default": 0,
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Children",
+            "type": "integer"
+          }
+        },
+        "title": "DiscoveryParty",
+        "type": "object"
+      },
+      "DiscoveryPreferences": {
+        "additionalProperties": false,
+        "properties": {
+          "activity_preferences": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20,
+            "title": "Activity Preferences",
+            "type": "array"
+          },
+          "event_types": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20,
+            "title": "Event Types",
+            "type": "array"
+          },
+          "interests": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20,
+            "title": "Interests",
+            "type": "array"
+          },
+          "pace": {
+            "anyOf": [
+              {
+                "enum": [
+                  "relaxed",
+                  "balanced",
+                  "busy"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pace"
+          },
+          "trip_dimensions": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20,
+            "title": "Trip Dimensions",
+            "type": "array"
+          },
+          "weather": {
+            "anyOf": [
+              {
+                "maxLength": 80,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Weather"
+          }
+        },
+        "title": "DiscoveryPreferences",
+        "type": "object"
+      },
+      "DiscoveryRequest": {
+        "additionalProperties": false,
+        "description": "Synchronous `/api/v1/business/discovery` request body.",
+        "properties": {
+          "budget": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DiscoveryBudget"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "budget_tier": {
+            "anyOf": [
+              {
+                "enum": [
+                  "budget",
+                  "standard",
+                  "premium"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Budget Tier"
+          },
+          "categories": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 10,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Categories"
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "maxLength": 3,
+                "minLength": 3,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "dates": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DiscoveryDates"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "destination_airport_iata_codes": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 32,
+            "title": "Destination Airport Iata Codes",
+            "type": "array"
+          },
+          "destination_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "maxItems": 50,
+            "title": "Destination Ids",
+            "type": "array"
+          },
+          "flight": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StructuredFlight"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "language": {
+            "default": "en",
+            "maxLength": 10,
+            "title": "Language",
+            "type": "string"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "maximum": 50.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
+          "origin": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DiscoveryOrigin"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "party": {
+            "$ref": "#/components/schemas/DiscoveryParty"
+          },
+          "preferences": {
+            "$ref": "#/components/schemas/DiscoveryPreferences"
+          },
+          "query": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Query"
+          },
+          "stay": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StructuredStay"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "title": "DiscoveryRequest",
+        "type": "object"
+      },
+      "DiscoveryResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "discovery_id": {
+            "title": "Discovery Id",
+            "type": "string"
+          },
+          "expires_at": {
+            "format": "date-time",
+            "title": "Expires At",
+            "type": "string"
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "interpreted_request": {
+            "$ref": "#/components/schemas/DiscoveryInterpretation"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/DiscoveryMeta"
+          },
+          "opportunities": {
+            "items": {
+              "$ref": "#/components/schemas/DiscoveryOpportunity"
+            },
+            "title": "Opportunities",
+            "type": "array"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "no_results"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "request_id",
+          "status",
+          "discovery_id",
+          "interpreted_request",
+          "expires_at"
+        ],
+        "title": "DiscoveryResponse",
+        "type": "object"
+      },
+      "DiscoverySearchInputsAvailable": {
+        "additionalProperties": false,
+        "description": "Whether this opportunity contains enough safe data to search each track.",
+        "properties": {
+          "accommodation": {
+            "default": false,
+            "title": "Accommodation",
+            "type": "boolean"
+          },
+          "events": {
+            "default": false,
+            "title": "Events",
+            "type": "boolean"
+          },
+          "flights": {
+            "default": false,
+            "title": "Flights",
+            "type": "boolean"
+          }
+        },
+        "title": "DiscoverySearchInputsAvailable",
+        "type": "object"
+      },
+      "DiscoveryUsage": {
+        "additionalProperties": false,
+        "description": "Commercial usage snapshot for an authenticated Business API caller.",
+        "properties": {
+          "candidate_count": {
+            "minimum": 0.0,
+            "title": "Candidate Count",
+            "type": "integer"
+          },
+          "discoveries_used": {
+            "minimum": 0.0,
+            "title": "Discoveries Used",
+            "type": "integer"
+          },
+          "metering_basis": {
+            "const": "request",
+            "default": "request",
+            "title": "Metering Basis",
+            "type": "string"
+          },
+          "plan_period_allowance": {
+            "minimum": 1.0,
+            "title": "Plan Period Allowance",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "discoveries_used",
+          "candidate_count",
+          "plan_period_allowance"
+        ],
+        "title": "DiscoveryUsage",
+        "type": "object"
+      },
+      "FlightDetail": {
+        "properties": {
+          "flight": {
+            "$ref": "#/components/schemas/SlimStandardizedFlightOffer"
+          }
+        },
+        "required": [
+          "flight"
+        ],
+        "title": "FlightDetail",
+        "type": "object"
+      },
+      "ImageAttribution": {
+        "properties": {
+          "photographer_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Photographer Name"
+          },
+          "photographer_profile_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Photographer Profile Url"
+          },
+          "provider_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Name"
+          },
+          "provider_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Url"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          }
+        },
+        "title": "ImageAttribution",
+        "type": "object"
+      },
+      "ImageObject": {
+        "properties": {
+          "attribution": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageAttribution"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "blur_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Blur Hash"
+          },
+          "credits": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Credits"
+          },
+          "download_location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Download Location"
+          },
+          "height": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Height"
+          },
+          "is_fallback": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Fallback"
+          },
+          "license": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "License"
+          },
+          "original_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Url"
+          },
+          "provider": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider"
+          },
+          "provider_asset_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Asset Id"
+          },
+          "source_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Url"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          },
+          "usage_kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Usage Kind"
+          },
+          "width": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Width"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "ImageObject",
+        "type": "object"
+      },
+      "PriceBasis": {
+        "enum": [
+          "one_way_per_traveller",
+          "return_per_traveller",
+          "flight_party_total",
+          "accommodation_per_night",
+          "accommodation_per_guest",
+          "accommodation_total",
+          "bundle_per_traveller",
+          "bundle_party_total"
+        ],
+        "title": "PriceBasis",
+        "type": "string"
+      },
+      "PriceInsight": {
+        "additionalProperties": false,
+        "description": "A truthful, display-ready claim about one exact price identity.",
+        "properties": {
+          "basis": {
+            "$ref": "#/components/schemas/PriceBasis"
+          },
+          "change_amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Change Amount"
+          },
+          "change_percent": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Change Percent"
+          },
+          "comparison_key": {
+            "title": "Comparison Key",
+            "type": "string"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "maximum": 1.0,
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence"
+          },
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "title": "Currency",
+            "type": "string"
+          },
+          "current_amount": {
+            "exclusiveMinimum": 0.0,
+            "title": "Current Amount",
+            "type": "number"
+          },
+          "expires_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expires At"
+          },
+          "explanation": {
+            "title": "Explanation",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "is_new_low": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is New Low"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/PriceInsightKind"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "observation_count": {
+            "anyOf": [
+              {
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observation Count"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "previous_amount": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Amount"
+          },
+          "provider_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Name"
+          },
+          "relative_band": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Relative Band"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/PriceInsightScope"
+          },
+          "source": {
+            "$ref": "#/components/schemas/PriceInsightSource"
+          },
+          "threshold_amount": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Threshold Amount"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "scope",
+          "basis",
+          "source",
+          "label",
+          "explanation",
+          "current_amount",
+          "currency",
+          "observed_at",
+          "comparison_key"
+        ],
+        "title": "PriceInsight",
+        "type": "object"
+      },
+      "PriceInsightKind": {
+        "enum": [
+          "absolute_low_price",
+          "relative_value",
+          "historical_drop",
+          "historical_low",
+          "provider_deal"
+        ],
+        "title": "PriceInsightKind",
+        "type": "string"
+      },
+      "PriceInsightScope": {
+        "enum": [
+          "flight",
+          "accommodation",
+          "bundle"
+        ],
+        "title": "PriceInsightScope",
+        "type": "string"
+      },
+      "PriceInsightSource": {
+        "enum": [
+          "verified_observation",
+          "learned_signal",
+          "historical_observations",
+          "provider"
+        ],
+        "title": "PriceInsightSource",
+        "type": "string"
+      },
+      "ProviderUrl": {
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "name"
+        ],
+        "title": "ProviderUrl",
+        "type": "object"
+      },
+      "SlimStandardizedFlightOffer": {
+        "properties": {
+          "can_unlock_return": {
+            "default": false,
+            "title": "Can Unlock Return",
+            "type": "boolean"
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "emissions_grams_co2e": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Emissions Grams Co2E"
+          },
+          "emissions_level": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Emissions Level"
+          },
+          "legs": {
+            "items": {
+              "$ref": "#/components/schemas/StandardizedFlightLeg"
+            },
+            "title": "Legs",
+            "type": "array"
+          },
+          "marketing_carriers": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Marketing Carriers",
+            "type": "array"
+          },
+          "max_segment_duration_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Segment Duration Minutes"
+          },
+          "offer_id": {
+            "title": "Offer Id",
+            "type": "string"
+          },
+          "operating_carriers": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Operating Carriers",
+            "type": "array"
+          },
+          "outbound_selection_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outbound Selection Id"
+          },
+          "price_breakdown": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "integer"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Breakdown"
+          },
+          "price_insights": {
+            "items": {
+              "$ref": "#/components/schemas/PriceInsight"
+            },
+            "title": "Price Insights",
+            "type": "array"
+          },
+          "price_provenance": {
+            "title": "Price Provenance",
+            "type": "string"
+          },
+          "price_total": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Total"
+          },
+          "primary_price_insight": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PriceInsight"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "provider_urls": {
+            "items": {
+              "$ref": "#/components/schemas/ProviderUrl"
+            },
+            "title": "Provider Urls",
+            "type": "array"
+          },
+          "total_duration_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Duration Minutes"
+          },
+          "trip_type": {
+            "title": "Trip Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "offer_id",
+          "provider",
+          "trip_type",
+          "legs",
+          "price_provenance"
+        ],
+        "title": "SlimStandardizedFlightOffer",
+        "type": "object"
+      },
+      "SlimStandardizedStay": {
+        "properties": {
+          "address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address"
+          },
+          "amenity_types": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Amenity Types",
+            "type": "array"
+          },
+          "bathrooms_min": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bathrooms Min"
+          },
+          "bedrooms_min": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bedrooms Min"
+          },
+          "check_in_time": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Check In Time"
+          },
+          "check_out_time": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Check Out Time"
+          },
+          "city": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "City"
+          },
+          "country_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country Code"
+          },
+          "deal": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StayDealSignal"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "distance_from_beach_km": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Distance From Beach Km"
+          },
+          "eco_certified": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Eco Certified"
+          },
+          "free_cancellation": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Free Cancellation"
+          },
+          "hotel_class": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hotel Class"
+          },
+          "id": {
+            "readOnly": true,
+            "title": "Id",
+            "type": "string"
+          },
+          "images": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ImageObject"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Images"
+          },
+          "is_vacation_rental": {
+            "title": "Is Vacation Rental",
+            "type": "boolean"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "location_rating": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location Rating"
+          },
+          "lon": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lon"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "nearby_places": {
+            "items": {
+              "$ref": "#/components/schemas/StayNearbyPlace"
+            },
+            "title": "Nearby Places",
+            "type": "array"
+          },
+          "offer_snapshot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StandardizedStayOffer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "price_insights": {
+            "items": {
+              "$ref": "#/components/schemas/PriceInsight"
+            },
+            "title": "Price Insights",
+            "type": "array"
+          },
+          "primary_price_insight": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PriceInsight"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "property_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Property Token"
+          },
+          "property_type": {
+            "anyOf": [
+              {
+                "enum": [
+                  "hotel",
+                  "hostel",
+                  "resort",
+                  "motel",
+                  "inn",
+                  "bed_and_breakfast",
+                  "apartment_hotel",
+                  "apartment",
+                  "guest_house",
+                  "villa",
+                  "ryokan",
+                  "minshuku",
+                  "vacation_rental",
+                  "other"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Property Type"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "provider_property_id": {
+            "title": "Provider Property Id",
+            "type": "string"
+          },
+          "provider_urls": {
+            "items": {
+              "$ref": "#/components/schemas/ProviderUrl"
+            },
+            "title": "Provider Urls",
+            "type": "array"
+          },
+          "rating_bucket": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rating Bucket"
+          },
+          "rating_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rating Count"
+          },
+          "rating_distribution": {
+            "items": {
+              "$ref": "#/components/schemas/StayRatingBucket"
+            },
+            "title": "Rating Distribution",
+            "type": "array"
+          },
+          "rating_value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rating Value"
+          },
+          "raw_amenities": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Raw Amenities",
+            "type": "array"
+          },
+          "region": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region"
+          },
+          "review_topics": {
+            "items": {
+              "$ref": "#/components/schemas/StayReviewTopic"
+            },
+            "title": "Review Topics",
+            "type": "array"
+          },
+          "sleeps": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sleeps"
+          },
+          "special_offers": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Special Offers"
+          },
+          "stay_kind": {
+            "title": "Stay Kind",
+            "type": "string"
+          }
+        },
+        "required": [
+          "stay_kind",
+          "provider",
+          "provider_property_id",
+          "name",
+          "is_vacation_rental",
+          "id"
+        ],
+        "title": "SlimStandardizedStay",
+        "type": "object"
+      },
+      "StandardizedFlightLeg": {
+        "properties": {
+          "arrival_airport": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arrival Airport"
+          },
+          "arrival_time_local": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arrival Time Local"
+          },
+          "arrival_time_utc": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arrival Time Utc"
+          },
+          "arrival_timezone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arrival Timezone"
+          },
+          "departure_airport": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Departure Airport"
+          },
+          "departure_time_local": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Departure Time Local"
+          },
+          "departure_time_utc": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Departure Time Utc"
+          },
+          "departure_timezone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Departure Timezone"
+          },
+          "duration_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Minutes"
+          },
+          "layover_minutes_total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Layover Minutes Total"
+          },
+          "leg_index": {
+            "title": "Leg Index",
+            "type": "integer"
+          },
+          "segments": {
+            "items": {
+              "$ref": "#/components/schemas/StandardizedFlightSegment"
+            },
+            "title": "Segments",
+            "type": "array"
+          },
+          "stop_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stop Count"
+          }
+        },
+        "required": [
+          "leg_index",
+          "segments"
+        ],
+        "title": "StandardizedFlightLeg",
+        "type": "object"
+      },
+      "StandardizedFlightSegment": {
+        "properties": {
+          "aircraft": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Aircraft"
+          },
+          "arrival_airport": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arrival Airport"
+          },
+          "arrival_time_local": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arrival Time Local"
+          },
+          "arrival_time_utc": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arrival Time Utc"
+          },
+          "arrival_timezone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arrival Timezone"
+          },
+          "cabin_class": {
+            "anyOf": [
+              {
+                "enum": [
+                  "economy",
+                  "premium_economy",
+                  "business",
+                  "first"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cabin Class"
+          },
+          "departure_airport": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Departure Airport"
+          },
+          "departure_time_local": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Departure Time Local"
+          },
+          "departure_time_utc": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Departure Time Utc"
+          },
+          "departure_timezone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Departure Timezone"
+          },
+          "duration_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Minutes"
+          },
+          "flight_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Flight Number"
+          },
+          "marketing_carrier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Marketing Carrier"
+          },
+          "operating_carrier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operating Carrier"
+          },
+          "segment_index": {
+            "title": "Segment Index",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "segment_index"
+        ],
+        "title": "StandardizedFlightSegment",
+        "type": "object"
+      },
+      "StandardizedStayOffer": {
+        "properties": {
+          "check_in_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Check In Date"
+          },
+          "check_out_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Check Out Date"
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "nightly_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nightly Price"
+          },
+          "price_insights": {
+            "items": {
+              "$ref": "#/components/schemas/PriceInsight"
+            },
+            "title": "Price Insights",
+            "type": "array"
+          },
+          "price_total": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Total"
+          },
+          "primary_price_insight": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PriceInsight"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "taxes_fees_included": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Taxes Fees Included"
+          }
+        },
+        "title": "StandardizedStayOffer",
+        "type": "object"
+      },
+      "StayDealSignal": {
+        "description": "Public provider deal context for a stay.\n\nThis is display/explainability data only. It should not be treated as a\nVoyager learned-price baseline.",
+        "properties": {
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "direction": {
+            "anyOf": [
+              {
+                "enum": [
+                  "below_usual",
+                  "above_usual"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Direction"
+          },
+          "label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Label"
+          },
+          "percent_delta": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Percent Delta"
+          },
+          "source": {
+            "const": "provider",
+            "default": "provider",
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "title": "StayDealSignal",
+        "type": "object"
+      },
+      "StayDetail": {
+        "properties": {
+          "stay": {
+            "$ref": "#/components/schemas/SlimStandardizedStay"
+          }
+        },
+        "required": [
+          "stay"
+        ],
+        "title": "StayDetail",
+        "type": "object"
+      },
+      "StayNearbyPlace": {
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "transportations": {
+            "items": {
+              "$ref": "#/components/schemas/StayTransportOption"
+            },
+            "title": "Transportations",
+            "type": "array"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "StayNearbyPlace",
+        "type": "object"
+      },
+      "StayRatingBucket": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "stars": {
+            "title": "Stars",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "stars",
+          "count"
+        ],
+        "title": "StayRatingBucket",
+        "type": "object"
+      },
+      "StayReviewTopic": {
+        "properties": {
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "negative": {
+            "default": 0,
+            "title": "Negative",
+            "type": "integer"
+          },
+          "neutral": {
+            "default": 0,
+            "title": "Neutral",
+            "type": "integer"
+          },
+          "positive": {
+            "default": 0,
+            "title": "Positive",
+            "type": "integer"
+          },
+          "positive_ratio": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Positive Ratio"
+          },
+          "total_mentioned": {
+            "default": 0,
+            "title": "Total Mentioned",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "StayReviewTopic",
+        "type": "object"
+      },
+      "StayTransportOption": {
+        "properties": {
+          "duration_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Minutes"
+          },
+          "duration_text": {
+            "title": "Duration Text",
+            "type": "string"
+          },
+          "mode": {
+            "title": "Mode",
+            "type": "string"
+          }
+        },
+        "required": [
+          "mode",
+          "duration_text"
+        ],
+        "title": "StayTransportOption",
+        "type": "object"
+      },
+      "StructuredFlight": {
+        "additionalProperties": false,
+        "properties": {
+          "cabin_class": {
+            "anyOf": [
+              {
+                "enum": [
+                  "economy",
+                  "premium_economy",
+                  "business",
+                  "first"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cabin Class"
+          },
+          "direction": {
+            "default": "prefer",
+            "enum": [
+              "prefer",
+              "must"
+            ],
+            "title": "Direction",
+            "type": "string"
+          },
+          "directions": {
+            "additionalProperties": {
+              "enum": [
+                "prefer",
+                "must"
+              ],
+              "type": "string"
+            },
+            "propertyNames": {
+              "enum": [
+                "cabin_class",
+                "max_stops",
+                "include_airlines",
+                "exclude_airlines"
+              ]
+            },
+            "title": "Directions",
+            "type": "object"
+          },
+          "exclude_airlines": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20,
+            "title": "Exclude Airlines",
+            "type": "array"
+          },
+          "include_airlines": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20,
+            "title": "Include Airlines",
+            "type": "array"
+          },
+          "max_stops": {
+            "anyOf": [
+              {
+                "const": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Stops"
+          }
+        },
+        "title": "StructuredFlight",
+        "type": "object"
+      },
+      "StructuredStay": {
+        "additionalProperties": false,
+        "description": "Only amenities with an existing provider parameter and post-filter.",
+        "properties": {
+          "amenities": {
+            "items": {
+              "enum": [
+                "FREE_WIFI",
+                "POOL",
+                "AIR_CONDITIONING",
+                "PARKING",
+                "PETS_ALLOWED",
+                "SPA",
+                "GYM",
+                "BREAKFAST_INCLUDED",
+                "RESTAURANT",
+                "BAR",
+                "ROOM_SERVICE",
+                "WHEELCHAIR_ACCESSIBLE",
+                "BEACH_ACCESS",
+                "ALL_INCLUSIVE",
+                "CHILD_FRIENDLY",
+                "INDOOR_POOL",
+                "OUTDOOR_POOL"
+              ],
+              "type": "string"
+            },
+            "maxItems": 17,
+            "title": "Amenities",
+            "type": "array"
+          },
+          "direction": {
+            "default": "prefer",
+            "enum": [
+              "prefer",
+              "must"
+            ],
+            "title": "Direction",
+            "type": "string"
+          },
+          "property_type": {
+            "anyOf": [
+              {
+                "enum": [
+                  "resort",
+                  "villa",
+                  "apartment"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Property Type"
+          }
+        },
+        "title": "StructuredStay",
+        "type": "object"
+      },
+      "TripPrice": {
+        "properties": {
+          "breakdown": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Breakdown"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "total": {
+            "title": "Total",
+            "type": "number"
+          }
+        },
+        "required": [
+          "total",
+          "currency"
+        ],
+        "title": "TripPrice",
+        "type": "object"
+      },
+      "WeatherHint": {
+        "properties": {
+          "confidence": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Confidence",
+            "type": "string"
+          },
+          "is_approx": {
+            "title": "Is Approx",
+            "type": "boolean"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "typical_high_c": {
+            "title": "Typical High C",
+            "type": "number"
+          },
+          "typical_low_c": {
+            "title": "Typical Low C",
+            "type": "number"
+          }
+        },
+        "required": [
+          "typical_low_c",
+          "typical_high_c",
+          "is_approx",
+          "source",
+          "confidence"
+        ],
+        "title": "WeatherHint",
+        "type": "object"
+      },
+      "WeatherObservation": {
+        "properties": {
+          "avg_temp_c": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Temp C"
+          },
+          "condition": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Condition"
+          },
+          "date": {
+            "title": "Date",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "max_temp_c": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Temp C"
+          },
+          "min_temp_c": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Temp C"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "temperature_celsius": {
+            "title": "Temperature Celsius",
+            "type": "number"
+          }
+        },
+        "required": [
+          "date",
+          "description",
+          "temperature_celsius",
+          "source"
+        ],
+        "title": "WeatherObservation",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "BusinessApiKey": {
+        "description": "MyEscapePlan Business API key. Required scopes depend on the operation (travel.discovery or travel.search).",
+        "in": "header",
+        "name": "X-API-KEY",
+        "type": "apiKey"
+      }
+    }
+  },
+  "info": {
+    "description": "External MyEscapePlan Travel Discovery and verified-search API. Authenticate with X-API-KEY.",
+    "title": "MyEscapePlan Business Travel API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/business/discovery": {
+      "post": {
+        "operationId": "createDiscovery",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9._:-]+$",
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiscoveryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiscoveryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business API authentication is required."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The API key is invalid or missing the required scope."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource was not found."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request conflicts with existing Business API state."
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource has expired."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request payload is invalid."
+          },
+          "425": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested representation is not ready yet."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business quota or rate limit reached."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unexpected Business API failure."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API is temporarily unavailable."
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API request timed out."
+          }
+        },
+        "security": [
+          {
+            "BusinessApiKey": []
+          }
+        ],
+        "summary": "Discover destination/date opportunities without live shopping",
+        "tags": [
+          "Business Travel API"
+        ]
+      }
+    },
+    "/api/v1/business/discovery/destinations": {
+      "get": {
+        "description": "Return canonical destination IDs safe to pass back as destination_ids.",
+        "operationId": "lookupDestinations",
+        "parameters": [
+          {
+            "description": "Destination name or prefix to resolve.",
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "schema": {
+              "description": "Destination name or prefix to resolve.",
+              "maxLength": 100,
+              "minLength": 2,
+              "title": "Q",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 10,
+              "maximum": 50,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiscoveryDestinationLookupResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business API authentication is required."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The API key is invalid or missing the required scope."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource was not found."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request conflicts with existing Business API state."
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource has expired."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request payload is invalid."
+          },
+          "425": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested representation is not ready yet."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business quota or rate limit reached."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unexpected Business API failure."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API is temporarily unavailable."
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API request timed out."
+          }
+        },
+        "security": [
+          {
+            "BusinessApiKey": []
+          }
+        ],
+        "summary": "Resolve destinations from the active Discovery planner snapshot",
+        "tags": [
+          "Business Travel API"
+        ]
+      }
+    },
+    "/api/v1/business/searches": {
+      "get": {
+        "operationId": "listSearches",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/BusinessJobStatus"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "client_reference",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 128,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Client Reference"
+            }
+          },
+          {
+            "description": "Inclusive ISO-8601 lower bound with timezone.",
+            "in": "query",
+            "name": "created_after",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Inclusive ISO-8601 lower bound with timezone.",
+              "title": "Created After"
+            }
+          },
+          {
+            "description": "Exclusive ISO-8601 upper bound with timezone.",
+            "in": "query",
+            "name": "created_before",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Exclusive ISO-8601 upper bound with timezone.",
+              "title": "Created Before"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 512,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cursor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessSearchListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business API authentication is required."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The API key is invalid or missing the required scope."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource was not found."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request conflicts with existing Business API state."
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource has expired."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request payload is invalid."
+          },
+          "425": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested representation is not ready yet."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business quota or rate limit reached."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unexpected Business API failure."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API is temporarily unavailable."
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API request timed out."
+          }
+        },
+        "security": [
+          {
+            "BusinessApiKey": []
+          }
+        ],
+        "summary": "List verified business searches",
+        "tags": [
+          "Business Travel API"
+        ]
+      },
+      "post": {
+        "operationId": "createSearch",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9._:-]+$",
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Client-Reference",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 128,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Client-Reference"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BusinessSearchCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessJobResource"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business API authentication is required."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The API key is invalid or missing the required scope."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource was not found."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request conflicts with existing Business API state."
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource has expired."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request payload is invalid."
+          },
+          "425": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested representation is not ready yet."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business quota or rate limit reached."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unexpected Business API failure."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API is temporarily unavailable."
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API request timed out."
+          }
+        },
+        "security": [
+          {
+            "BusinessApiKey": []
+          }
+        ],
+        "summary": "Create a detached verified business travel search",
+        "tags": [
+          "Business Travel API"
+        ]
+      }
+    },
+    "/api/v1/business/searches/{search_id}": {
+      "delete": {
+        "operationId": "cancelSearch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "search_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Search Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessJobResource"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business API authentication is required."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The API key is invalid or missing the required scope."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource was not found."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request conflicts with existing Business API state."
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource has expired."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request payload is invalid."
+          },
+          "425": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested representation is not ready yet."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business quota or rate limit reached."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unexpected Business API failure."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API is temporarily unavailable."
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API request timed out."
+          }
+        },
+        "security": [
+          {
+            "BusinessApiKey": []
+          }
+        ],
+        "summary": "Cancel a verified business search",
+        "tags": [
+          "Business Travel API"
+        ]
+      },
+      "get": {
+        "operationId": "getSearch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "search_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Search Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessJobResource"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business API authentication is required."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The API key is invalid or missing the required scope."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource was not found."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request conflicts with existing Business API state."
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource has expired."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request payload is invalid."
+          },
+          "425": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested representation is not ready yet."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business quota or rate limit reached."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unexpected Business API failure."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API is temporarily unavailable."
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API request timed out."
+          }
+        },
+        "security": [
+          {
+            "BusinessApiKey": []
+          }
+        ],
+        "summary": "Get verified-search status",
+        "tags": [
+          "Business Travel API"
+        ]
+      }
+    },
+    "/api/v1/business/searches/{search_id}/events": {
+      "get": {
+        "operationId": "streamSearchEvents",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "search_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Search Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "after",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "After",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business API authentication is required."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The API key is invalid or missing the required scope."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource was not found."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request conflicts with existing Business API state."
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource has expired."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request payload is invalid."
+          },
+          "425": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested representation is not ready yet."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business quota or rate limit reached."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unexpected Business API failure."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API is temporarily unavailable."
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API request timed out."
+          }
+        },
+        "security": [
+          {
+            "BusinessApiKey": []
+          }
+        ],
+        "summary": "Observe progressive sanitized NDJSON events",
+        "tags": [
+          "Business Travel API"
+        ]
+      }
+    },
+    "/api/v1/business/searches/{search_id}/results": {
+      "get": {
+        "operationId": "getSearchResults",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "search_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Search Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessSearchResultsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business API authentication is required."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The API key is invalid or missing the required scope."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource was not found."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request conflicts with existing Business API state."
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource has expired."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request payload is invalid."
+          },
+          "425": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested representation is not ready yet."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business quota or rate limit reached."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unexpected Business API failure."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API is temporarily unavailable."
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API request timed out."
+          }
+        },
+        "security": [
+          {
+            "BusinessApiKey": []
+          }
+        ],
+        "summary": "Get canonical verified travel results",
+        "tags": [
+          "Business Travel API"
+        ]
+      }
+    },
+    "/api/v1/business/searches/{search_id}/results/{result_id}": {
+      "get": {
+        "operationId": "getSearchResult",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "search_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Search Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "result_id",
+            "required": true,
+            "schema": {
+              "title": "Result Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessSearchResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business API authentication is required."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The API key is invalid or missing the required scope."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource was not found."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request conflicts with existing Business API state."
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource has expired."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request payload is invalid."
+          },
+          "425": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested representation is not ready yet."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business quota or rate limit reached."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unexpected Business API failure."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API is temporarily unavailable."
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API request timed out."
+          }
+        },
+        "security": [
+          {
+            "BusinessApiKey": []
+          }
+        ],
+        "summary": "Get one canonical verified result",
+        "tags": [
+          "Business Travel API"
+        ]
+      }
+    },
+    "/api/v1/business/searches/{search_id}/results/{result_id}/details": {
+      "get": {
+        "description": "Return the consumer-grade detail payload for a Business result.",
+        "operationId": "getSearchResultDetails",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "search_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Search Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "result_id",
+            "required": true,
+            "schema": {
+              "title": "Result Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date_option_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date Option Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessResultDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business API authentication is required."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The API key is invalid or missing the required scope."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource was not found."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request conflicts with existing Business API state."
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource has expired."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request payload is invalid."
+          },
+          "425": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested representation is not ready yet."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business quota or rate limit reached."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unexpected Business API failure."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API is temporarily unavailable."
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API request timed out."
+          }
+        },
+        "security": [
+          {
+            "BusinessApiKey": []
+          }
+        ],
+        "summary": "Get rich details for one verified result",
+        "tags": [
+          "Business Travel API"
+        ]
+      }
+    },
+    "/api/v1/business/usage": {
+      "get": {
+        "operationId": "getUsage",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessUsageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request is invalid."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business API authentication is required."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The API key is invalid or missing the required scope."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource was not found."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request conflicts with existing Business API state."
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested Business API resource has expired."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The request payload is invalid."
+          },
+          "425": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The requested representation is not ready yet."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Business quota or rate limit reached."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unexpected Business API failure."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API is temporarily unavailable."
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessErrorEnvelope"
+                }
+              }
+            },
+            "description": "The Business API request timed out."
+          }
+        },
+        "security": [
+          {
+            "BusinessApiKey": []
+          }
+        ],
+        "summary": "Get current Business API usage and allowances",
+        "tags": [
+          "Business Travel API"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.myescapeplan.app"
+    }
+  ]
+}

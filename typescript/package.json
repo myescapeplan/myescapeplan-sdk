@@ -1,0 +1,44 @@
+{
+  "name": "@myescapeplan/sdk",
+  "version": "0.1.0",
+  "description": "MyEscapePlan Business Travel API client",
+  "author": "MyEscapePlan",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myescapeplan/myescapeplan-sdk.git"
+  },
+  "homepage": "https://github.com/myescapeplan/myescapeplan-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/myescapeplan/myescapeplan-sdk/issues"
+  },
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/esm/index.js",
+      "default": "./dist/esm/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc && tsc -p tsconfig.esm.json && node scripts/fix-esm-imports.mjs",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^4.0 || ^5.0"
+  }
+}
