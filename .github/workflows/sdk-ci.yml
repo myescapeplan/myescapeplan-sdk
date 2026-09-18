@@ -24,6 +24,12 @@ jobs:
           npm run build
           npm pack --dry-run --ignore-scripts
 
+      - name: Type-check runnable TypeScript example
+        working-directory: examples/typescript
+        run: |
+          npm ci --ignore-scripts
+          ./node_modules/.bin/tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext --skipLibCheck discovery.ts
+
       - name: Test packed TypeScript SDK consumption
         working-directory: typescript
         shell: bash
@@ -55,6 +61,9 @@ jobs:
           "$RUNNER_TEMP/mep-sdk-python-venv/bin/python" -m pip install --upgrade pip
           "$RUNNER_TEMP/mep-sdk-python-venv/bin/python" -m pip install dist/*.whl
           "$RUNNER_TEMP/mep-sdk-python-venv/bin/python" -c "from myescapeplan import ApiClient, Configuration; from myescapeplan.api.business_travel_api_api import BusinessTravelAPIApi; assert ApiClient and Configuration and BusinessTravelAPIApi"
+
+      - name: Compile runnable Python example
+        run: python -m py_compile examples/python/discovery.py
 
       - name: Verify OpenAPI snapshot and generated surface
         run: |

@@ -1,7 +1,7 @@
 [project]
 name = "myescapeplan"
 version = "0.1.0"
-description = "MyEscapePlan Business Travel API"
+description = "Travel discovery API SDK for natural-language travel search, destination recommendation and flexible-date planning"
 authors = [
   { name = "MyEscapePlan", email = "engineering@myescapeplan.app" },
 ]
@@ -9,7 +9,7 @@ license = "MIT"
 license-files = ["LICENSE"]
 readme = "README.md"
 requires-python = ">=3.10"
-keywords = ["MyEscapePlan", "Business Travel API", "SDK"]
+keywords = ["MyEscapePlan", "travel API", "travel discovery", "travel planning", "travel search", "destination recommendation", "AI travel", "Python SDK"]
 dependencies = [
   "python-dateutil (>=2.8.2)",
   "httpx (>=0.28.1)",
@@ -18,7 +18,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/myescapeplan/myescapeplan-sdk#readme"
+Homepage = "https://business.myescapeplan.app/developers"
+Documentation = "https://business.myescapeplan.app/developers"
+Discovery = "https://business.myescapeplan.app/discovery"
 Issues = "https://github.com/myescapeplan/myescapeplan-sdk/issues"
 Repository = "https://github.com/myescapeplan/myescapeplan-sdk"
 

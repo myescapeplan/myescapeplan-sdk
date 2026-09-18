@@ -1,0 +1,16 @@
+{
+  "name": "myescapeplan-sdk-examples",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "example": "tsx discovery.ts"
+  },
+  "dependencies": {
+    "@myescapeplan/sdk": "file:../../typescript"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.0.0"
+  }
+}
