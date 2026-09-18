@@ -17,8 +17,9 @@ a public frontend application.
 
 ## Use from a local checkout
 
-The package is not published to npm yet. Clone the [public SDK repository](https://github.com/myescapeplan/myescapeplan-sdk), then run
-`npm ci` and `npm run build` from `typescript/`.
+The package is not published to npm yet. Clone the [public SDK repository](https://github.com/myescapeplan/myescapeplan-sdk), run
+`npm ci` and `npm run build` from `typescript/`, then install that built local
+package into your trusted backend with `npm install /path/to/myescapeplan-sdk/typescript`.
 
 ## Quick start
 

@@ -64,8 +64,12 @@ cd typescript
 npm ci
 npm run build
 
-# Python client (from a fresh shell or after returning to the repository root)
-cd ../python
+# From your trusted backend project, install the built local package
+cd /path/to/your-backend
+npm install /path/to/myescapeplan-sdk/typescript
+
+# Python client (from the SDK checkout)
+cd /path/to/myescapeplan-sdk/python
 python -m pip install -e .
 ```
 
@@ -141,6 +145,20 @@ const job = await api.createSearch({
     opportunityId: opportunity.opportunityId,
   },
 });
+
+let search = await api.getSearch({ searchId: job.id });
+for (let attempt = 0; attempt < 30; attempt += 1) {
+  if (search.status === "completed" || search.status === "partial") break;
+  if (search.status === "failed" || search.status === "cancelled") {
+    throw new Error(`Verified Search ended with status: ${search.status}`);
+  }
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  search = await api.getSearch({ searchId: job.id });
+}
+
+if (search.status !== "completed" && search.status !== "partial") {
+  throw new Error("Verified Search did not reach a result-ready status in time");
+}
 
 const results = await api.getSearchResults({ searchId: job.id });
 ```
