@@ -5009,8 +5009,13 @@
       }
     }
   },
+  "externalDocs": {
+    "description": "MyEscapePlan Travel Discovery API developer documentation",
+    "url": "https://business.myescapeplan.app/developers"
+  },
   "info": {
-    "description": "External MyEscapePlan Travel Discovery and verified-search API. Authenticate with X-API-KEY.",
+    "description": "Travel Discovery API for natural-language travel search, destination recommendation and flexible-date planning. Discovery ranks destination/date opportunities before inventory shopping; optional Verified Search performs provider-backed checks. Authenticate with X-API-KEY.",
+    "termsOfService": "https://business.myescapeplan.app/api-terms",
     "title": "MyEscapePlan Business Travel API",
     "version": "1.0.0"
   },

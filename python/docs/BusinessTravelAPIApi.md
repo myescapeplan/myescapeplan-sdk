@@ -1,6 +1,8 @@
 # BusinessTravelAPIApi
 
-The generated Business Travel API client for MyEscapePlan.
+The generated MyEscapePlan Travel Discovery API client.
+
+Canonical developer documentation: https://business.myescapeplan.app/developers
 
 ## Supported v0.1 operations
 
