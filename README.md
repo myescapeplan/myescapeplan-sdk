@@ -13,6 +13,7 @@ before downstream flight, hotel or other inventory shopping.
 **Developer hub:** https://business.myescapeplan.app/developers
 **Discovery overview:** https://business.myescapeplan.app/discovery
 **OpenAPI:** https://api.myescapeplan.app/api/v1/business/openapi.json
+**Runnable examples:** [TypeScript and Python examples](examples/)
 
 > MyEscapePlan is a travel planning and pre-shopping decision layer, not an
 > inventory supplier. Discovery decides what is worth shopping; Verified Search
