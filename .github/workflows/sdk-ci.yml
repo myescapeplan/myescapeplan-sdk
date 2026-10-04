@@ -28,7 +28,7 @@ jobs:
         working-directory: examples/typescript
         run: |
           npm ci --ignore-scripts
-          ./node_modules/.bin/tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext --skipLibCheck discovery.ts
+          ./node_modules/.bin/tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext --skipLibCheck discovery.ts catalogue.ts
 
       - name: Test packed TypeScript SDK consumption
         working-directory: typescript
@@ -62,8 +62,8 @@ jobs:
           "$RUNNER_TEMP/mep-sdk-python-venv/bin/python" -m pip install dist/*.whl
           "$RUNNER_TEMP/mep-sdk-python-venv/bin/python" -c "from myescapeplan import ApiClient, Configuration; from myescapeplan.api.business_travel_api_api import BusinessTravelAPIApi; assert ApiClient and Configuration and BusinessTravelAPIApi"
 
-      - name: Compile runnable Python example
-        run: python -m py_compile examples/python/discovery.py
+      - name: Compile runnable Python examples
+        run: python -m py_compile examples/python/discovery.py examples/python/catalogue.py
 
       - name: Verify OpenAPI snapshot and generated surface
         run: |
@@ -102,6 +102,7 @@ jobs:
           expected = {
               "createDiscovery",
               "lookupDestinations",
+              "matchCatalogue",
               "createSearch",
               "listSearches",
               "getUsage",

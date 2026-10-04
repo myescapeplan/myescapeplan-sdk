@@ -25,6 +25,7 @@ from myescapeplan.models.business_detail_date_option import BusinessDetailDateOp
 from myescapeplan.models.date_range import DateRange
 from myescapeplan.models.destination_access_summary import DestinationAccessSummary
 from myescapeplan.models.destination_reason_payload import DestinationReasonPayload
+from myescapeplan.models.event_detail import EventDetail
 from myescapeplan.models.flight_detail import FlightDetail
 from myescapeplan.models.image_object import ImageObject
 from myescapeplan.models.price_insight import PriceInsight
@@ -36,7 +37,7 @@ from pydantic_core import to_jsonable_python
 
 class BusinessTripResultDetail(BaseModel):
     """
-    Consumer detail projection with event inventory intentionally disabled.
+    Rich detail projection shared by the consumer and Advisor products.
     """ # noqa: E501
     affiliate_links: Optional[List[AffiliateLink]] = None
     airport_refs: Optional[Dict[str, AirportRef]] = None
@@ -46,7 +47,9 @@ class BusinessTripResultDetail(BaseModel):
     destination_reason: Optional[DestinationReasonPayload] = None
     display_name: Optional[StrictStr] = None
     error_message: Optional[StrictStr] = None
+    events: Optional[List[EventDetail]] = None
     flights: Optional[List[FlightDetail]] = None
+    has_more_events: Optional[StrictBool] = None
     has_more_flights: Optional[StrictBool] = None
     has_more_hotels: Optional[StrictBool] = None
     has_more_vacation_rentals: Optional[StrictBool] = None
@@ -61,12 +64,13 @@ class BusinessTripResultDetail(BaseModel):
     search_id: Optional[StrictStr] = None
     spec_hash: Optional[StrictStr] = None
     status: StrictStr
+    total_events_count: Optional[StrictInt] = None
     total_flights_count: Optional[StrictInt] = None
     total_hotels_count: Optional[StrictInt] = None
     total_price: Optional[TripPrice] = None
     total_vacation_rentals_count: Optional[StrictInt] = None
     trip_dates: Optional[DateRange] = None
-    __properties: ClassVar[List[str]] = ["affiliate_links", "airport_refs", "date_options", "description", "destination_access", "destination_reason", "display_name", "error_message", "flights", "has_more_flights", "has_more_hotels", "has_more_vacation_rentals", "hotels", "images", "price_insights", "primary_price_insight", "reason", "rentals", "requested_categories", "run_id", "search_id", "spec_hash", "status", "total_flights_count", "total_hotels_count", "total_price", "total_vacation_rentals_count", "trip_dates"]
+    __properties: ClassVar[List[str]] = ["affiliate_links", "airport_refs", "date_options", "description", "destination_access", "destination_reason", "display_name", "error_message", "events", "flights", "has_more_events", "has_more_flights", "has_more_hotels", "has_more_vacation_rentals", "hotels", "images", "price_insights", "primary_price_insight", "reason", "rentals", "requested_categories", "run_id", "search_id", "spec_hash", "status", "total_events_count", "total_flights_count", "total_hotels_count", "total_price", "total_vacation_rentals_count", "trip_dates"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -134,6 +138,13 @@ class BusinessTripResultDetail(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of destination_reason
         if self.destination_reason:
             _dict['destination_reason'] = self.destination_reason.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in events (list)
+        _items = []
+        if self.events:
+            for _item_events in self.events:
+                if _item_events:
+                    _items.append(_item_events.to_dict())
+            _dict['events'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in flights (list)
         _items = []
         if self.flights:
@@ -213,10 +224,20 @@ class BusinessTripResultDetail(BaseModel):
         if self.error_message is None and "error_message" in self.model_fields_set:
             _dict['error_message'] = None
 
+        # set to None if events (nullable) is None
+        # and model_fields_set contains the field
+        if self.events is None and "events" in self.model_fields_set:
+            _dict['events'] = None
+
         # set to None if flights (nullable) is None
         # and model_fields_set contains the field
         if self.flights is None and "flights" in self.model_fields_set:
             _dict['flights'] = None
+
+        # set to None if has_more_events (nullable) is None
+        # and model_fields_set contains the field
+        if self.has_more_events is None and "has_more_events" in self.model_fields_set:
+            _dict['has_more_events'] = None
 
         # set to None if has_more_flights (nullable) is None
         # and model_fields_set contains the field
@@ -278,6 +299,11 @@ class BusinessTripResultDetail(BaseModel):
         if self.spec_hash is None and "spec_hash" in self.model_fields_set:
             _dict['spec_hash'] = None
 
+        # set to None if total_events_count (nullable) is None
+        # and model_fields_set contains the field
+        if self.total_events_count is None and "total_events_count" in self.model_fields_set:
+            _dict['total_events_count'] = None
+
         # set to None if total_flights_count (nullable) is None
         # and model_fields_set contains the field
         if self.total_flights_count is None and "total_flights_count" in self.model_fields_set:
@@ -328,7 +354,9 @@ class BusinessTripResultDetail(BaseModel):
             "destination_reason": DestinationReasonPayload.from_dict(obj["destination_reason"]) if obj.get("destination_reason") is not None else None,
             "display_name": obj.get("display_name"),
             "error_message": obj.get("error_message"),
+            "events": [EventDetail.from_dict(_item) for _item in obj["events"]] if obj.get("events") is not None else None,
             "flights": [FlightDetail.from_dict(_item) for _item in obj["flights"]] if obj.get("flights") is not None else None,
+            "has_more_events": obj.get("has_more_events"),
             "has_more_flights": obj.get("has_more_flights"),
             "has_more_hotels": obj.get("has_more_hotels"),
             "has_more_vacation_rentals": obj.get("has_more_vacation_rentals"),
@@ -343,6 +371,7 @@ class BusinessTripResultDetail(BaseModel):
             "search_id": obj.get("search_id"),
             "spec_hash": obj.get("spec_hash"),
             "status": obj.get("status"),
+            "total_events_count": obj.get("total_events_count"),
             "total_flights_count": obj.get("total_flights_count"),
             "total_hotels_count": obj.get("total_hotels_count"),
             "total_price": TripPrice.from_dict(obj["total_price"]) if obj.get("total_price") is not None else None,

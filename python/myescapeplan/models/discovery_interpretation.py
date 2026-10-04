@@ -20,6 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from myescapeplan.models.budget_amount import BudgetAmount
+from myescapeplan.models.budget_min_amount import BudgetMinAmount
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,6 +32,7 @@ class DiscoveryInterpretation(BaseModel):
     adults: Optional[StrictInt] = 1
     budget_amount: Optional[BudgetAmount] = None
     budget_currency: Optional[StrictStr] = None
+    budget_min_amount: Optional[BudgetMinAmount] = None
     budget_scope: Optional[StrictStr] = None
     categories: Optional[List[StrictStr]] = None
     children: Optional[StrictInt] = 0
@@ -42,7 +44,7 @@ class DiscoveryInterpretation(BaseModel):
     start_date: Optional[StrictStr] = None
     title: StrictStr
     warnings: Optional[List[StrictStr]] = None
-    __properties: ClassVar[List[str]] = ["adults", "budget_amount", "budget_currency", "budget_scope", "categories", "children", "date_mode", "date_text", "duration_nights", "end_date", "origin", "start_date", "title", "warnings"]
+    __properties: ClassVar[List[str]] = ["adults", "budget_amount", "budget_currency", "budget_min_amount", "budget_scope", "categories", "children", "date_mode", "date_text", "duration_nights", "end_date", "origin", "start_date", "title", "warnings"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -86,6 +88,9 @@ class DiscoveryInterpretation(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of budget_amount
         if self.budget_amount:
             _dict['budget_amount'] = self.budget_amount.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of budget_min_amount
+        if self.budget_min_amount:
+            _dict['budget_min_amount'] = self.budget_min_amount.to_dict()
         # set to None if budget_amount (nullable) is None
         # and model_fields_set contains the field
         if self.budget_amount is None and "budget_amount" in self.model_fields_set:
@@ -95,6 +100,11 @@ class DiscoveryInterpretation(BaseModel):
         # and model_fields_set contains the field
         if self.budget_currency is None and "budget_currency" in self.model_fields_set:
             _dict['budget_currency'] = None
+
+        # set to None if budget_min_amount (nullable) is None
+        # and model_fields_set contains the field
+        if self.budget_min_amount is None and "budget_min_amount" in self.model_fields_set:
+            _dict['budget_min_amount'] = None
 
         # set to None if budget_scope (nullable) is None
         # and model_fields_set contains the field
@@ -146,6 +156,7 @@ class DiscoveryInterpretation(BaseModel):
             "adults": obj.get("adults") if obj.get("adults") is not None else 1,
             "budget_amount": BudgetAmount.from_dict(obj["budget_amount"]) if obj.get("budget_amount") is not None else None,
             "budget_currency": obj.get("budget_currency"),
+            "budget_min_amount": BudgetMinAmount.from_dict(obj["budget_min_amount"]) if obj.get("budget_min_amount") is not None else None,
             "budget_scope": obj.get("budget_scope"),
             "categories": obj.get("categories"),
             "children": obj.get("children") if obj.get("children") is not None else 0,

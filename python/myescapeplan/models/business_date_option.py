@@ -35,6 +35,7 @@ class BusinessDateOption(BaseModel):
     date_option_id: StrictStr
     date_type: Optional[StrictStr] = 'unknown'
     end_date: date
+    events: Optional[BusinessTrackSummary] = None
     flights: Optional[BusinessTrackSummary] = None
     hotels: Optional[BusinessTrackSummary] = None
     nights: Annotated[int, Field(strict=True, ge=1)]
@@ -45,7 +46,7 @@ class BusinessDateOption(BaseModel):
     start_date: date
     status: Optional[StrictStr] = 'pending'
     unpriced_reason: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["date_option_id", "date_type", "end_date", "flights", "hotels", "nights", "price_insights", "pricing", "primary_price_insight", "rentals", "start_date", "status", "unpriced_reason"]
+    __properties: ClassVar[List[str]] = ["date_option_id", "date_type", "end_date", "events", "flights", "hotels", "nights", "price_insights", "pricing", "primary_price_insight", "rentals", "start_date", "status", "unpriced_reason"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -106,6 +107,9 @@ class BusinessDateOption(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of events
+        if self.events:
+            _dict['events'] = self.events.to_dict()
         # override the default output from pydantic by calling `to_dict()` of flights
         if self.flights:
             _dict['flights'] = self.flights.to_dict()
@@ -128,6 +132,11 @@ class BusinessDateOption(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of rentals
         if self.rentals:
             _dict['rentals'] = self.rentals.to_dict()
+        # set to None if events (nullable) is None
+        # and model_fields_set contains the field
+        if self.events is None and "events" in self.model_fields_set:
+            _dict['events'] = None
+
         # set to None if flights (nullable) is None
         # and model_fields_set contains the field
         if self.flights is None and "flights" in self.model_fields_set:
@@ -173,6 +182,7 @@ class BusinessDateOption(BaseModel):
             "date_option_id": obj.get("date_option_id"),
             "date_type": obj.get("date_type") if obj.get("date_type") is not None else 'unknown',
             "end_date": obj.get("end_date"),
+            "events": BusinessTrackSummary.from_dict(obj["events"]) if obj.get("events") is not None else None,
             "flights": BusinessTrackSummary.from_dict(obj["flights"]) if obj.get("flights") is not None else None,
             "hotels": BusinessTrackSummary.from_dict(obj["hotels"]) if obj.get("hotels") is not None else None,
             "nights": obj.get("nights"),

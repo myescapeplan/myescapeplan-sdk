@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,8 +30,11 @@ class AirportRef(BaseModel):
     city: StrictStr
     country: StrictStr
     iata: StrictStr
+    lat: Optional[Union[StrictFloat, StrictInt]] = None
+    lon: Optional[Union[StrictFloat, StrictInt]] = None
     name: StrictStr
-    __properties: ClassVar[List[str]] = ["city", "country", "iata", "name"]
+    place_id: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["city", "country", "iata", "lat", "lon", "name", "place_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -72,6 +75,21 @@ class AirportRef(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if lat (nullable) is None
+        # and model_fields_set contains the field
+        if self.lat is None and "lat" in self.model_fields_set:
+            _dict['lat'] = None
+
+        # set to None if lon (nullable) is None
+        # and model_fields_set contains the field
+        if self.lon is None and "lon" in self.model_fields_set:
+            _dict['lon'] = None
+
+        # set to None if place_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.place_id is None and "place_id" in self.model_fields_set:
+            _dict['place_id'] = None
+
         return _dict
 
     @classmethod
@@ -87,7 +105,10 @@ class AirportRef(BaseModel):
             "city": obj.get("city"),
             "country": obj.get("country"),
             "iata": obj.get("iata"),
-            "name": obj.get("name")
+            "lat": obj.get("lat"),
+            "lon": obj.get("lon"),
+            "name": obj.get("name"),
+            "place_id": obj.get("place_id")
         })
         return _obj
 

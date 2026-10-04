@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **date_option_id** | **str** |  | 
 **date_type** | **str** |  | [optional] [default to 'unknown']
 **end_date** | **date** |  | 
+**events** | [**BusinessTrackSummary**](BusinessTrackSummary.md) |  | [optional] 
 **flights** | [**BusinessTrackSummary**](BusinessTrackSummary.md) |  | [optional] 
 **hotels** | [**BusinessTrackSummary**](BusinessTrackSummary.md) |  | [optional] 
 **nights** | **int** |  | 

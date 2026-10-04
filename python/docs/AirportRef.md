@@ -8,7 +8,10 @@ Name | Type | Description | Notes
 **city** | **str** |  | 
 **country** | **str** |  | 
 **iata** | **str** |  | 
+**lat** | **float** |  | [optional] 
+**lon** | **float** |  | [optional] 
 **name** | **str** |  | 
+**place_id** | **str** |  | [optional] 
 
 ## Example
 

@@ -25,6 +25,7 @@ from myescapeplan.models.business_trip_result_detail import BusinessTripResultDe
 from myescapeplan.models.destination_access_summary import DestinationAccessSummary
 from myescapeplan.models.slim_standardized_flight_offer import SlimStandardizedFlightOffer
 from myescapeplan.models.slim_standardized_stay import SlimStandardizedStay
+from myescapeplan.models.standardized_event import StandardizedEvent
 from myescapeplan.models.weather_hint import WeatherHint
 from myescapeplan.models.weather_observation import WeatherObservation
 from typing import Optional, Set
@@ -38,7 +39,9 @@ class BusinessResultDetail(BaseModel):
     affiliate_links: Optional[List[AffiliateLink]] = None
     destination_access: Optional[DestinationAccessSummary] = None
     detail: BusinessTripResultDetail
+    events: Optional[List[StandardizedEvent]] = None
     flights: Optional[List[SlimStandardizedFlightOffer]] = None
+    has_more_events: Optional[StrictBool] = False
     has_more_flights: Optional[StrictBool] = False
     has_more_hotels: Optional[StrictBool] = False
     has_more_rentals: Optional[StrictBool] = False
@@ -48,7 +51,7 @@ class BusinessResultDetail(BaseModel):
     weather: Optional[WeatherHint] = None
     weather_data: Optional[List[WeatherObservation]] = None
     weather_status: Optional[StrictStr] = 'unavailable'
-    __properties: ClassVar[List[str]] = ["affiliate_links", "destination_access", "detail", "flights", "has_more_flights", "has_more_hotels", "has_more_rentals", "hotels", "rentals", "result", "weather", "weather_data", "weather_status"]
+    __properties: ClassVar[List[str]] = ["affiliate_links", "destination_access", "detail", "events", "flights", "has_more_events", "has_more_flights", "has_more_hotels", "has_more_rentals", "hotels", "rentals", "result", "weather", "weather_data", "weather_status"]
 
     @field_validator('weather_status')
     def weather_status_validate_enum(cls, value):
@@ -112,6 +115,13 @@ class BusinessResultDetail(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of detail
         if self.detail:
             _dict['detail'] = self.detail.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in events (list)
+        _items = []
+        if self.events:
+            for _item_events in self.events:
+                if _item_events:
+                    _items.append(_item_events.to_dict())
+            _dict['events'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in flights (list)
         _items = []
         if self.flights:
@@ -171,7 +181,9 @@ class BusinessResultDetail(BaseModel):
             "affiliate_links": [AffiliateLink.from_dict(_item) for _item in obj["affiliate_links"]] if obj.get("affiliate_links") is not None else None,
             "destination_access": DestinationAccessSummary.from_dict(obj["destination_access"]) if obj.get("destination_access") is not None else None,
             "detail": BusinessTripResultDetail.from_dict(obj["detail"]) if obj.get("detail") is not None else None,
+            "events": [StandardizedEvent.from_dict(_item) for _item in obj["events"]] if obj.get("events") is not None else None,
             "flights": [SlimStandardizedFlightOffer.from_dict(_item) for _item in obj["flights"]] if obj.get("flights") is not None else None,
+            "has_more_events": obj.get("has_more_events") if obj.get("has_more_events") is not None else False,
             "has_more_flights": obj.get("has_more_flights") if obj.get("has_more_flights") is not None else False,
             "has_more_hotels": obj.get("has_more_hotels") if obj.get("has_more_hotels") is not None else False,
             "has_more_rentals": obj.get("has_more_rentals") if obj.get("has_more_rentals") is not None else False,

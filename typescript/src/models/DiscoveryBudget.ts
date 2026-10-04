@@ -24,7 +24,7 @@ export interface DiscoveryBudget {
      * @type {number}
      * @memberof DiscoveryBudget
      */
-    amount: number;
+    amount?: number | null;
     /**
      * 
      * @type {string}
@@ -62,7 +62,6 @@ export type DiscoveryBudgetScopeEnum = typeof DiscoveryBudgetScopeEnum[keyof typ
  * Check if a given object implements the DiscoveryBudget interface.
  */
 export function instanceOfDiscoveryBudget(value: object): value is DiscoveryBudget {
-    if (!('amount' in value) || value['amount'] === undefined) return false;
     if (!('currency' in value) || value['currency'] === undefined) return false;
     return true;
 }
@@ -77,7 +76,7 @@ export function DiscoveryBudgetFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'amount': json['amount'],
+        'amount': json['amount'] === undefined ? undefined : json['amount'] === null ? null : json['amount'],
         'currency': json['currency'],
         'minAmount': json['min_amount'] === undefined ? undefined : json['min_amount'] === null ? null : json['min_amount'],
         'scope': json['scope'] == null ? undefined : json['scope'],

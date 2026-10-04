@@ -1,7 +1,7 @@
 
 # BusinessDetailDateOption
 
-Date-option detail without the disabled event inventory track.
+Date-option detail with date-scoped component inventory.
 
 ## Properties
 
@@ -10,6 +10,7 @@ Name | Type
 `candidateId` | string
 `dateOptionKind` | [DateOptionKind](DateOptionKind.md)
 `dates` | [DateRange](DateRange.md)
+`eventSummary` | [DateOptionComponentSummary](DateOptionComponentSummary.md)
 `flightSummary` | [DateOptionComponentSummary](DateOptionComponentSummary.md)
 `hotelSummary` | [DateOptionComponentSummary](DateOptionComponentSummary.md)
 `priceInsights` | [Array&lt;PriceInsight&gt;](PriceInsight.md)
@@ -29,6 +30,7 @@ const example = {
   "candidateId": null,
   "dateOptionKind": null,
   "dates": null,
+  "eventSummary": null,
   "flightSummary": null,
   "hotelSummary": null,
   "priceInsights": null,

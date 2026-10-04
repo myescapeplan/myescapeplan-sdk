@@ -59,6 +59,16 @@ import {
     BusinessUsageResponseToJSON,
 } from '../models/BusinessUsageResponse';
 import {
+    type CatalogueMatchRequest,
+    CatalogueMatchRequestFromJSON,
+    CatalogueMatchRequestToJSON,
+} from '../models/CatalogueMatchRequest';
+import {
+    type CatalogueMatchResponse,
+    CatalogueMatchResponseFromJSON,
+    CatalogueMatchResponseToJSON,
+} from '../models/CatalogueMatchResponse';
+import {
     type DiscoveryDestinationLookupResponse,
     DiscoveryDestinationLookupResponseFromJSON,
     DiscoveryDestinationLookupResponseToJSON,
@@ -120,6 +130,11 @@ export interface ListSearchesRequest {
 export interface LookupDestinationsRequest {
     q: string;
     limit?: number;
+    locale?: string;
+}
+
+export interface MatchCatalogueRequest {
+    catalogueMatchRequest: CatalogueMatchRequest;
 }
 
 /**
@@ -361,6 +376,7 @@ export interface BusinessTravelAPIApiInterface {
      * Creates request options for lookupDestinations without sending the request
      * @param {string} q Destination name or prefix to resolve.
      * @param {number} [limit] 
+     * @param {string} [locale] 
      * @throws {RequiredError}
      * @memberof BusinessTravelAPIApiInterface
      */
@@ -371,6 +387,7 @@ export interface BusinessTravelAPIApiInterface {
      * @summary Resolve destinations from the active Discovery planner snapshot
      * @param {string} q Destination name or prefix to resolve.
      * @param {number} [limit] 
+     * @param {string} [locale] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BusinessTravelAPIApiInterface
@@ -382,6 +399,30 @@ export interface BusinessTravelAPIApiInterface {
      * Resolve destinations from the active Discovery planner snapshot
      */
     lookupDestinations(requestParameters: LookupDestinationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DiscoveryDestinationLookupResponse>;
+
+    /**
+     * Creates request options for matchCatalogue without sending the request
+     * @param {CatalogueMatchRequest} catalogueMatchRequest 
+     * @throws {RequiredError}
+     * @memberof BusinessTravelAPIApiInterface
+     */
+    matchCatalogueRequestOpts(requestParameters: MatchCatalogueRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * Project customer-owned products onto Discovery or known destinations.  This is a request-scoped BYO-candidate bridge: it does not persist customer inventory, call providers, claim availability, or consume a verified-search allowance.
+     * @summary Match customer catalogue products to Discovery or known destinations
+     * @param {CatalogueMatchRequest} catalogueMatchRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BusinessTravelAPIApiInterface
+     */
+    matchCatalogueRaw(requestParameters: MatchCatalogueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CatalogueMatchResponse>>;
+
+    /**
+     * Project customer-owned products onto Discovery or known destinations.  This is a request-scoped BYO-candidate bridge: it does not persist customer inventory, call providers, claim availability, or consume a verified-search allowance.
+     * Match customer catalogue products to Discovery or known destinations
+     */
+    matchCatalogue(requestParameters: MatchCatalogueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CatalogueMatchResponse>;
 
 }
 
@@ -912,6 +953,10 @@ export class BusinessTravelAPIApi extends runtime.BaseAPI implements BusinessTra
             queryParameters['limit'] = requestParameters['limit'];
         }
 
+        if (requestParameters['locale'] != null) {
+            queryParameters['locale'] = requestParameters['locale'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
@@ -946,6 +991,59 @@ export class BusinessTravelAPIApi extends runtime.BaseAPI implements BusinessTra
      */
     async lookupDestinations(requestParameters: LookupDestinationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DiscoveryDestinationLookupResponse> {
         const response = await this.lookupDestinationsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for matchCatalogue without sending the request
+     */
+    async matchCatalogueRequestOpts(requestParameters: MatchCatalogueRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['catalogueMatchRequest'] == null) {
+            throw new runtime.RequiredError(
+                'catalogueMatchRequest',
+                'Required parameter "catalogueMatchRequest" was null or undefined when calling matchCatalogue().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-API-KEY"] = await this.configuration.apiKey("X-API-KEY"); // BusinessApiKey authentication
+        }
+
+
+        let urlPath = `/api/v1/business/catalogue/matches`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CatalogueMatchRequestToJSON(requestParameters['catalogueMatchRequest']),
+        };
+    }
+
+    /**
+     * Project customer-owned products onto Discovery or known destinations.  This is a request-scoped BYO-candidate bridge: it does not persist customer inventory, call providers, claim availability, or consume a verified-search allowance.
+     * Match customer catalogue products to Discovery or known destinations
+     */
+    async matchCatalogueRaw(requestParameters: MatchCatalogueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CatalogueMatchResponse>> {
+        const requestOptions = await this.matchCatalogueRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CatalogueMatchResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Project customer-owned products onto Discovery or known destinations.  This is a request-scoped BYO-candidate bridge: it does not persist customer inventory, call providers, claim availability, or consume a verified-search allowance.
+     * Match customer catalogue products to Discovery or known destinations
+     */
+    async matchCatalogue(requestParameters: MatchCatalogueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CatalogueMatchResponse> {
+        const response = await this.matchCatalogueRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

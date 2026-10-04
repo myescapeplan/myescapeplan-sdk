@@ -8,6 +8,7 @@ Canonical developer documentation: https://business.myescapeplan.app/developers
 
 - create_discovery - discover destination/date opportunities.
 - lookup_destinations - resolve destinations from the active planner snapshot.
+- match_catalogue - match customer-owned products to Discovery or known destinations.
 - create_search - create a detached verified-search job.
 - list_searches - list the caller's verified searches.
 - get_usage - read current Business API usage and allowances.

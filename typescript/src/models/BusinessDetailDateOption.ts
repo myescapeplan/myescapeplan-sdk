@@ -50,7 +50,7 @@ import {
 } from './PriceInsight';
 
 /**
- * Date-option detail without the disabled event inventory track.
+ * Date-option detail with date-scoped component inventory.
  * @export
  * @interface BusinessDetailDateOption
  */
@@ -73,6 +73,12 @@ export interface BusinessDetailDateOption {
      * @memberof BusinessDetailDateOption
      */
     dates: DateRange;
+    /**
+     * 
+     * @type {DateOptionComponentSummary}
+     * @memberof BusinessDetailDateOption
+     */
+    eventSummary?: DateOptionComponentSummary | null;
     /**
      * 
      * @type {DateOptionComponentSummary}
@@ -146,6 +152,7 @@ export function BusinessDetailDateOptionFromJSONTyped(json: any, ignoreDiscrimin
         'candidateId': json['candidate_id'] === undefined ? undefined : json['candidate_id'] === null ? null : json['candidate_id'],
         'dateOptionKind': json['date_option_kind'] === undefined ? undefined : json['date_option_kind'] === null ? null : DateOptionKindFromJSON(json['date_option_kind']),
         'dates': DateRangeFromJSON(json['dates']),
+        'eventSummary': json['event_summary'] === undefined ? undefined : json['event_summary'] === null ? null : DateOptionComponentSummaryFromJSON(json['event_summary']),
         'flightSummary': json['flight_summary'] === undefined ? undefined : json['flight_summary'] === null ? null : DateOptionComponentSummaryFromJSON(json['flight_summary']),
         'hotelSummary': json['hotel_summary'] === undefined ? undefined : json['hotel_summary'] === null ? null : DateOptionComponentSummaryFromJSON(json['hotel_summary']),
         'priceInsights': json['price_insights'] == null ? undefined : ((json['price_insights'] as Array<any>).map(PriceInsightFromJSON)),
@@ -171,6 +178,7 @@ export function BusinessDetailDateOptionToJSONTyped(value?: BusinessDetailDateOp
         'candidate_id': value['candidateId'],
         'date_option_kind': DateOptionKindToJSON(value['dateOptionKind']),
         'dates': DateRangeToJSON(value['dates']),
+        'event_summary': DateOptionComponentSummaryToJSON(value['eventSummary']),
         'flight_summary': DateOptionComponentSummaryToJSON(value['flightSummary']),
         'hotel_summary': DateOptionComponentSummaryToJSON(value['hotelSummary']),
         'price_insights': value['priceInsights'] == null ? undefined : ((value['priceInsights'] as Array<any>).map(PriceInsightToJSON)),

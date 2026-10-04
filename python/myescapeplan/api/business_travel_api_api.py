@@ -27,6 +27,8 @@ from myescapeplan.models.business_search_list_response import BusinessSearchList
 from myescapeplan.models.business_search_result import BusinessSearchResult
 from myescapeplan.models.business_search_results_response import BusinessSearchResultsResponse
 from myescapeplan.models.business_usage_response import BusinessUsageResponse
+from myescapeplan.models.catalogue_match_request import CatalogueMatchRequest
+from myescapeplan.models.catalogue_match_response import CatalogueMatchResponse
 from myescapeplan.models.discovery_destination_lookup_response import DiscoveryDestinationLookupResponse
 from myescapeplan.models.discovery_request import DiscoveryRequest
 from myescapeplan.models.discovery_response import DiscoveryResponse
@@ -3890,6 +3892,7 @@ class BusinessTravelAPIApi:
         self,
         q: Annotated[str, Field(min_length=2, strict=True, max_length=100, description="Destination name or prefix to resolve.")],
         limit: Optional[Annotated[int, Field(le=50, strict=True, ge=1)]] = None,
+        locale: Optional[Annotated[str, Field(min_length=2, strict=True, max_length=10)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3911,6 +3914,8 @@ class BusinessTravelAPIApi:
         :type q: str
         :param limit:
         :type limit: int
+        :param locale:
+        :type locale: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3936,6 +3941,7 @@ class BusinessTravelAPIApi:
         _param = self._lookup_destinations_serialize(
             q=q,
             limit=limit,
+            locale=locale,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3973,6 +3979,7 @@ class BusinessTravelAPIApi:
         self,
         q: Annotated[str, Field(min_length=2, strict=True, max_length=100, description="Destination name or prefix to resolve.")],
         limit: Optional[Annotated[int, Field(le=50, strict=True, ge=1)]] = None,
+        locale: Optional[Annotated[str, Field(min_length=2, strict=True, max_length=10)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3994,6 +4001,8 @@ class BusinessTravelAPIApi:
         :type q: str
         :param limit:
         :type limit: int
+        :param locale:
+        :type locale: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4019,6 +4028,7 @@ class BusinessTravelAPIApi:
         _param = self._lookup_destinations_serialize(
             q=q,
             limit=limit,
+            locale=locale,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4056,6 +4066,7 @@ class BusinessTravelAPIApi:
         self,
         q: Annotated[str, Field(min_length=2, strict=True, max_length=100, description="Destination name or prefix to resolve.")],
         limit: Optional[Annotated[int, Field(le=50, strict=True, ge=1)]] = None,
+        locale: Optional[Annotated[str, Field(min_length=2, strict=True, max_length=10)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4077,6 +4088,8 @@ class BusinessTravelAPIApi:
         :type q: str
         :param limit:
         :type limit: int
+        :param locale:
+        :type locale: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4102,6 +4115,7 @@ class BusinessTravelAPIApi:
         _param = self._lookup_destinations_serialize(
             q=q,
             limit=limit,
+            locale=locale,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4135,6 +4149,7 @@ class BusinessTravelAPIApi:
         self,
         q: Annotated[str, Field(min_length=2, strict=True, max_length=100, description="Destination name or prefix to resolve.")],
         limit: Optional[Annotated[int, Field(le=50, strict=True, ge=1)]] = None,
+        locale: Optional[Annotated[str, Field(min_length=2, strict=True, max_length=10)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4157,6 +4172,7 @@ class BusinessTravelAPIApi:
             self.lookup_destinations(
                 q=q,
                 limit=limit,
+                locale=locale,
                 _request_timeout=_request_timeout,
                 _request_auth=_request_auth,
                 _content_type=_content_type,
@@ -4171,6 +4187,7 @@ class BusinessTravelAPIApi:
         self,
         q: Annotated[str, Field(min_length=2, strict=True, max_length=100, description="Destination name or prefix to resolve.")],
         limit: Optional[Annotated[int, Field(le=50, strict=True, ge=1)]] = None,
+        locale: Optional[Annotated[str, Field(min_length=2, strict=True, max_length=10)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4193,6 +4210,7 @@ class BusinessTravelAPIApi:
             self.lookup_destinations_with_http_info(
                 q=q,
                 limit=limit,
+                locale=locale,
                 _request_timeout=_request_timeout,
                 _request_auth=_request_auth,
                 _content_type=_content_type,
@@ -4207,6 +4225,7 @@ class BusinessTravelAPIApi:
         self,
         q: Annotated[str, Field(min_length=2, strict=True, max_length=100, description="Destination name or prefix to resolve.")],
         limit: Optional[Annotated[int, Field(le=50, strict=True, ge=1)]] = None,
+        locale: Optional[Annotated[str, Field(min_length=2, strict=True, max_length=10)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4229,6 +4248,7 @@ class BusinessTravelAPIApi:
             self.lookup_destinations_without_preload_content(
                 q=q,
                 limit=limit,
+                locale=locale,
                 _request_timeout=_request_timeout,
                 _request_auth=_request_auth,
                 _content_type=_content_type,
@@ -4242,6 +4262,7 @@ class BusinessTravelAPIApi:
         self,
         q,
         limit,
+        locale,
         _request_auth,
         _content_type,
         _headers,
@@ -4272,6 +4293,10 @@ class BusinessTravelAPIApi:
             
             _query_params.append(('limit', limit))
             
+        if locale is not None:
+            
+            _query_params.append(('locale', locale))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -4294,6 +4319,418 @@ class BusinessTravelAPIApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/api/v1/business/discovery/destinations',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    async def match_catalogue(
+        self,
+        catalogue_match_request: CatalogueMatchRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> CatalogueMatchResponse:
+        """Match customer catalogue products to Discovery or known destinations
+
+        Project customer-owned products onto Discovery or known destinations.  This is a request-scoped BYO-candidate bridge: it does not persist customer inventory, call providers, claim availability, or consume a verified-search allowance.
+
+        :param catalogue_match_request: (required)
+        :type catalogue_match_request: CatalogueMatchRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._match_catalogue_serialize(
+            catalogue_match_request=catalogue_match_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CatalogueMatchResponse",
+            '400': "BusinessErrorEnvelope",
+            '401': "BusinessErrorEnvelope",
+            '403': "BusinessErrorEnvelope",
+            '404': "BusinessErrorEnvelope",
+            '409': "BusinessErrorEnvelope",
+            '410': "BusinessErrorEnvelope",
+            '422': "BusinessErrorEnvelope",
+            '425': "BusinessErrorEnvelope",
+            '429': "BusinessErrorEnvelope",
+            '500': "BusinessErrorEnvelope",
+            '503': "BusinessErrorEnvelope",
+            '504': "BusinessErrorEnvelope",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    async def match_catalogue_with_http_info(
+        self,
+        catalogue_match_request: CatalogueMatchRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[CatalogueMatchResponse]:
+        """Match customer catalogue products to Discovery or known destinations
+
+        Project customer-owned products onto Discovery or known destinations.  This is a request-scoped BYO-candidate bridge: it does not persist customer inventory, call providers, claim availability, or consume a verified-search allowance.
+
+        :param catalogue_match_request: (required)
+        :type catalogue_match_request: CatalogueMatchRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._match_catalogue_serialize(
+            catalogue_match_request=catalogue_match_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CatalogueMatchResponse",
+            '400': "BusinessErrorEnvelope",
+            '401': "BusinessErrorEnvelope",
+            '403': "BusinessErrorEnvelope",
+            '404': "BusinessErrorEnvelope",
+            '409': "BusinessErrorEnvelope",
+            '410': "BusinessErrorEnvelope",
+            '422': "BusinessErrorEnvelope",
+            '425': "BusinessErrorEnvelope",
+            '429': "BusinessErrorEnvelope",
+            '500': "BusinessErrorEnvelope",
+            '503': "BusinessErrorEnvelope",
+            '504': "BusinessErrorEnvelope",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    async def match_catalogue_without_preload_content(
+        self,
+        catalogue_match_request: CatalogueMatchRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Match customer catalogue products to Discovery or known destinations
+
+        Project customer-owned products onto Discovery or known destinations.  This is a request-scoped BYO-candidate bridge: it does not persist customer inventory, call providers, claim availability, or consume a verified-search allowance.
+
+        :param catalogue_match_request: (required)
+        :type catalogue_match_request: CatalogueMatchRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._match_catalogue_serialize(
+            catalogue_match_request=catalogue_match_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CatalogueMatchResponse",
+            '400': "BusinessErrorEnvelope",
+            '401': "BusinessErrorEnvelope",
+            '403': "BusinessErrorEnvelope",
+            '404': "BusinessErrorEnvelope",
+            '409': "BusinessErrorEnvelope",
+            '410': "BusinessErrorEnvelope",
+            '422': "BusinessErrorEnvelope",
+            '425': "BusinessErrorEnvelope",
+            '429': "BusinessErrorEnvelope",
+            '500': "BusinessErrorEnvelope",
+            '503': "BusinessErrorEnvelope",
+            '504': "BusinessErrorEnvelope",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    @validate_call
+    def match_catalogue_sync(
+        self,
+        catalogue_match_request: CatalogueMatchRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> CatalogueMatchResponse:
+        """Match customer catalogue products to Discovery or known destinations (synchronous)
+
+        Synchronous variant of :meth:`match_catalogue`. It calls the asynchronous
+        method and blocks until it completes.
+        """ # noqa: E501
+        return run_sync(
+            self.match_catalogue(
+                catalogue_match_request=catalogue_match_request,
+                _request_timeout=_request_timeout,
+                _request_auth=_request_auth,
+                _content_type=_content_type,
+                _headers=_headers,
+                _host_index=_host_index,
+            )
+        )
+
+
+    @validate_call
+    def match_catalogue_sync_with_http_info(
+        self,
+        catalogue_match_request: CatalogueMatchRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[CatalogueMatchResponse]:
+        """Match customer catalogue products to Discovery or known destinations (synchronous)
+
+        Synchronous variant of :meth:`match_catalogue_with_http_info`. It calls the
+        asynchronous method and blocks until it completes.
+        """ # noqa: E501
+        return run_sync(
+            self.match_catalogue_with_http_info(
+                catalogue_match_request=catalogue_match_request,
+                _request_timeout=_request_timeout,
+                _request_auth=_request_auth,
+                _content_type=_content_type,
+                _headers=_headers,
+                _host_index=_host_index,
+            )
+        )
+
+
+    @validate_call
+    def match_catalogue_sync_without_preload_content(
+        self,
+        catalogue_match_request: CatalogueMatchRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Match customer catalogue products to Discovery or known destinations (synchronous)
+
+        Synchronous variant of :meth:`match_catalogue_without_preload_content`. It calls
+        the asynchronous method and blocks until it completes.
+        """ # noqa: E501
+        return run_sync(
+            self.match_catalogue_without_preload_content(
+                catalogue_match_request=catalogue_match_request,
+                _request_timeout=_request_timeout,
+                _request_auth=_request_auth,
+                _content_type=_content_type,
+                _headers=_headers,
+                _host_index=_host_index,
+            )
+        )
+
+
+    def _match_catalogue_serialize(
+        self,
+        catalogue_match_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if catalogue_match_request is not None:
+            _body_params = catalogue_match_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'BusinessApiKey'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/v1/business/catalogue/matches',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

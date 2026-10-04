@@ -47,6 +47,7 @@ class BusinessSearchResult(BaseModel):
     destination_id: UUID
     details_url: Optional[StrictStr] = None
     display_name: Optional[StrictStr] = None
+    events: Optional[BusinessTrackSummary] = None
     features: Optional[List[StrictStr]] = None
     flights: BusinessTrackSummary
     hotels: BusinessTrackSummary
@@ -63,7 +64,7 @@ class BusinessSearchResult(BaseModel):
     weather_data: Optional[List[WeatherObservation]] = None
     weather_status: Optional[StrictStr] = 'unavailable'
     weather_summary: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["component_pricing", "data_status", "date_options", "dates", "description", "destination_access", "destination_id", "details_url", "display_name", "features", "flights", "hotels", "images", "price_insights", "pricing", "rank", "reason", "rentals", "requested_categories", "result_id", "verified_at", "weather", "weather_data", "weather_status", "weather_summary"]
+    __properties: ClassVar[List[str]] = ["component_pricing", "data_status", "date_options", "dates", "description", "destination_access", "destination_id", "details_url", "display_name", "events", "features", "flights", "hotels", "images", "price_insights", "pricing", "rank", "reason", "rentals", "requested_categories", "result_id", "verified_at", "weather", "weather_data", "weather_status", "weather_summary"]
 
     @field_validator('weather_status')
     def weather_status_validate_enum(cls, value):
@@ -134,6 +135,9 @@ class BusinessSearchResult(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of destination_access
         if self.destination_access:
             _dict['destination_access'] = self.destination_access.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of events
+        if self.events:
+            _dict['events'] = self.events.to_dict()
         # override the default output from pydantic by calling `to_dict()` of flights
         if self.flights:
             _dict['flights'] = self.flights.to_dict()
@@ -256,6 +260,7 @@ class BusinessSearchResult(BaseModel):
             "destination_id": obj.get("destination_id"),
             "details_url": obj.get("details_url"),
             "display_name": obj.get("display_name"),
+            "events": BusinessTrackSummary.from_dict(obj["events"]) if obj.get("events") is not None else None,
             "features": obj.get("features"),
             "flights": BusinessTrackSummary.from_dict(obj["flights"]) if obj.get("flights") is not None else None,
             "hotels": BusinessTrackSummary.from_dict(obj["hotels"]) if obj.get("hotels") is not None else None,

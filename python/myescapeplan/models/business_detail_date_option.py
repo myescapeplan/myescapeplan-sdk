@@ -30,11 +30,12 @@ from pydantic_core import to_jsonable_python
 
 class BusinessDetailDateOption(BaseModel):
     """
-    Date-option detail without the disabled event inventory track.
+    Date-option detail with date-scoped component inventory.
     """ # noqa: E501
     candidate_id: Optional[StrictStr] = None
     date_option_kind: Optional[DateOptionKind] = None
     dates: DateRange
+    event_summary: Optional[DateOptionComponentSummary] = None
     flight_summary: Optional[DateOptionComponentSummary] = None
     hotel_summary: Optional[DateOptionComponentSummary] = None
     price_insights: Optional[List[PriceInsight]] = None
@@ -43,7 +44,7 @@ class BusinessDetailDateOption(BaseModel):
     required_categories: Optional[List[StrictStr]] = None
     status: Optional[StrictStr] = None
     total_price: Optional[TripPrice] = None
-    __properties: ClassVar[List[str]] = ["candidate_id", "date_option_kind", "dates", "flight_summary", "hotel_summary", "price_insights", "primary_price_insight", "rental_summary", "required_categories", "status", "total_price"]
+    __properties: ClassVar[List[str]] = ["candidate_id", "date_option_kind", "dates", "event_summary", "flight_summary", "hotel_summary", "price_insights", "primary_price_insight", "rental_summary", "required_categories", "status", "total_price"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -87,6 +88,9 @@ class BusinessDetailDateOption(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of dates
         if self.dates:
             _dict['dates'] = self.dates.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of event_summary
+        if self.event_summary:
+            _dict['event_summary'] = self.event_summary.to_dict()
         # override the default output from pydantic by calling `to_dict()` of flight_summary
         if self.flight_summary:
             _dict['flight_summary'] = self.flight_summary.to_dict()
@@ -118,6 +122,11 @@ class BusinessDetailDateOption(BaseModel):
         # and model_fields_set contains the field
         if self.date_option_kind is None and "date_option_kind" in self.model_fields_set:
             _dict['date_option_kind'] = None
+
+        # set to None if event_summary (nullable) is None
+        # and model_fields_set contains the field
+        if self.event_summary is None and "event_summary" in self.model_fields_set:
+            _dict['event_summary'] = None
 
         # set to None if flight_summary (nullable) is None
         # and model_fields_set contains the field
@@ -169,6 +178,7 @@ class BusinessDetailDateOption(BaseModel):
             "candidate_id": obj.get("candidate_id"),
             "date_option_kind": obj.get("date_option_kind"),
             "dates": DateRange.from_dict(obj["dates"]) if obj.get("dates") is not None else None,
+            "event_summary": DateOptionComponentSummary.from_dict(obj["event_summary"]) if obj.get("event_summary") is not None else None,
             "flight_summary": DateOptionComponentSummary.from_dict(obj["flight_summary"]) if obj.get("flight_summary") is not None else None,
             "hotel_summary": DateOptionComponentSummary.from_dict(obj["hotel_summary"]) if obj.get("hotel_summary") is not None else None,
             "price_insights": [PriceInsight.from_dict(_item) for _item in obj["price_insights"]] if obj.get("price_insights") is not None else None,

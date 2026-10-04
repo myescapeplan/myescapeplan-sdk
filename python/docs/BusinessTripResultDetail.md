@@ -1,6 +1,6 @@
 # BusinessTripResultDetail
 
-Consumer detail projection with event inventory intentionally disabled.
+Rich detail projection shared by the consumer and Advisor products.
 
 ## Properties
 
@@ -14,7 +14,9 @@ Name | Type | Description | Notes
 **destination_reason** | [**DestinationReasonPayload**](DestinationReasonPayload.md) |  | [optional] 
 **display_name** | **str** |  | [optional] 
 **error_message** | **str** |  | [optional] 
+**events** | [**List[EventDetail]**](EventDetail.md) |  | [optional] 
 **flights** | [**List[FlightDetail]**](FlightDetail.md) |  | [optional] 
+**has_more_events** | **bool** |  | [optional] 
 **has_more_flights** | **bool** |  | [optional] 
 **has_more_hotels** | **bool** |  | [optional] 
 **has_more_vacation_rentals** | **bool** |  | [optional] 
@@ -29,6 +31,7 @@ Name | Type | Description | Notes
 **search_id** | **str** |  | [optional] 
 **spec_hash** | **str** |  | [optional] 
 **status** | **str** |  | 
+**total_events_count** | **int** |  | [optional] 
 **total_flights_count** | **int** |  | [optional] 
 **total_hotels_count** | **int** |  | [optional] 
 **total_price** | [**TripPrice**](TripPrice.md) |  | [optional] 

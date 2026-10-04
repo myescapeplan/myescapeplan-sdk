@@ -14,6 +14,7 @@ environments. Call the MyEscapePlan Business API from your trusted backend.
 
 - createDiscovery — discover destination/date opportunities.
 - lookupDestinations — resolve destinations from the active planner snapshot.
+- matchCatalogue — match customer-owned products to Discovery or known destinations.
 - createSearch — create a detached verified-search job.
 - listSearches — list the caller's verified searches.
 - getUsage — read current Business API usage and allowances.

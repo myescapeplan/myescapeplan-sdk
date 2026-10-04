@@ -64,6 +64,12 @@ export interface BusinessDateOption {
      * @type {BusinessTrackSummary}
      * @memberof BusinessDateOption
      */
+    events?: BusinessTrackSummary | null;
+    /**
+     * 
+     * @type {BusinessTrackSummary}
+     * @memberof BusinessDateOption
+     */
     flights?: BusinessTrackSummary | null;
     /**
      * 
@@ -169,6 +175,7 @@ export function BusinessDateOptionFromJSONTyped(json: any, ignoreDiscriminator: 
         'dateOptionId': json['date_option_id'],
         'dateType': json['date_type'] == null ? undefined : json['date_type'],
         'endDate': (new Date(json['end_date'])),
+        'events': json['events'] === undefined ? undefined : json['events'] === null ? null : BusinessTrackSummaryFromJSON(json['events']),
         'flights': json['flights'] === undefined ? undefined : json['flights'] === null ? null : BusinessTrackSummaryFromJSON(json['flights']),
         'hotels': json['hotels'] === undefined ? undefined : json['hotels'] === null ? null : BusinessTrackSummaryFromJSON(json['hotels']),
         'nights': json['nights'],
@@ -196,6 +203,7 @@ export function BusinessDateOptionToJSONTyped(value?: BusinessDateOption | null,
         'date_option_id': value['dateOptionId'],
         'date_type': value['dateType'],
         'end_date': value['endDate'].toISOString().substring(0,10),
+        'events': BusinessTrackSummaryToJSON(value['events']),
         'flights': BusinessTrackSummaryToJSON(value['flights']),
         'hotels': BusinessTrackSummaryToJSON(value['hotels']),
         'nights': value['nights'],

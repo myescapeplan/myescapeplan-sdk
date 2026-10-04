@@ -28,6 +28,7 @@ from myescapeplan.models.discovery_party import DiscoveryParty
 from myescapeplan.models.discovery_preferences import DiscoveryPreferences
 from myescapeplan.models.structured_flight import StructuredFlight
 from myescapeplan.models.structured_stay import StructuredStay
+from myescapeplan.models.trip_anchor import TripAnchor
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -48,6 +49,7 @@ class BusinessSearchCreateRequest(BaseModel):
     flight: Optional[StructuredFlight] = None
     include_images: Optional[StrictBool] = Field(default=True, description="Whether destination and offer image metadata should be included in results and details.")
     language: Optional[Annotated[str, Field(strict=True, max_length=10)]] = 'en'
+    locale: Optional[Annotated[str, Field(strict=True, max_length=10)]] = None
     max_results: Optional[Annotated[int, Field(le=10, strict=True, ge=1)]] = 10
     opportunity_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=128)]] = None
     origin: Optional[DiscoveryOrigin] = None
@@ -55,7 +57,8 @@ class BusinessSearchCreateRequest(BaseModel):
     preferences: Optional[DiscoveryPreferences] = None
     query: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = None
     stay: Optional[StructuredStay] = None
-    __properties: ClassVar[List[str]] = ["budget", "budget_tier", "categories", "currency", "date_option_id", "dates", "destination_airport_iata_codes", "destination_ids", "discovery_id", "flight", "include_images", "language", "max_results", "opportunity_id", "origin", "party", "preferences", "query", "stay"]
+    trip_anchor: Optional[TripAnchor] = Field(default=None, description="Known external commitment that the trip must satisfy. The caller supplies the place and required local calendar dates; MyEscapePlan does not discover or verify the event itself.")
+    __properties: ClassVar[List[str]] = ["budget", "budget_tier", "categories", "currency", "date_option_id", "dates", "destination_airport_iata_codes", "destination_ids", "discovery_id", "flight", "include_images", "language", "locale", "max_results", "opportunity_id", "origin", "party", "preferences", "query", "stay", "trip_anchor"]
 
     @field_validator('budget_tier')
     def budget_tier_validate_enum(cls, value):
@@ -127,6 +130,9 @@ class BusinessSearchCreateRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of stay
         if self.stay:
             _dict['stay'] = self.stay.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of trip_anchor
+        if self.trip_anchor:
+            _dict['trip_anchor'] = self.trip_anchor.to_dict()
         # set to None if budget (nullable) is None
         # and model_fields_set contains the field
         if self.budget is None and "budget" in self.model_fields_set:
@@ -167,6 +173,11 @@ class BusinessSearchCreateRequest(BaseModel):
         if self.flight is None and "flight" in self.model_fields_set:
             _dict['flight'] = None
 
+        # set to None if locale (nullable) is None
+        # and model_fields_set contains the field
+        if self.locale is None and "locale" in self.model_fields_set:
+            _dict['locale'] = None
+
         # set to None if opportunity_id (nullable) is None
         # and model_fields_set contains the field
         if self.opportunity_id is None and "opportunity_id" in self.model_fields_set:
@@ -186,6 +197,11 @@ class BusinessSearchCreateRequest(BaseModel):
         # and model_fields_set contains the field
         if self.stay is None and "stay" in self.model_fields_set:
             _dict['stay'] = None
+
+        # set to None if trip_anchor (nullable) is None
+        # and model_fields_set contains the field
+        if self.trip_anchor is None and "trip_anchor" in self.model_fields_set:
+            _dict['trip_anchor'] = None
 
         return _dict
 
@@ -211,13 +227,15 @@ class BusinessSearchCreateRequest(BaseModel):
             "flight": StructuredFlight.from_dict(obj["flight"]) if obj.get("flight") is not None else None,
             "include_images": obj.get("include_images") if obj.get("include_images") is not None else True,
             "language": obj.get("language") if obj.get("language") is not None else 'en',
+            "locale": obj.get("locale"),
             "max_results": obj.get("max_results") if obj.get("max_results") is not None else 10,
             "opportunity_id": obj.get("opportunity_id"),
             "origin": DiscoveryOrigin.from_dict(obj["origin"]) if obj.get("origin") is not None else None,
             "party": DiscoveryParty.from_dict(obj["party"]) if obj.get("party") is not None else None,
             "preferences": DiscoveryPreferences.from_dict(obj["preferences"]) if obj.get("preferences") is not None else None,
             "query": obj.get("query"),
-            "stay": StructuredStay.from_dict(obj["stay"]) if obj.get("stay") is not None else None
+            "stay": StructuredStay.from_dict(obj["stay"]) if obj.get("stay") is not None else None,
+            "trip_anchor": TripAnchor.from_dict(obj["trip_anchor"]) if obj.get("trip_anchor") is not None else None
         })
         return _obj
 

@@ -39,6 +39,7 @@ class SlimStandardizedStay(BaseModel):
     amenity_types: Optional[List[StrictStr]] = None
     bathrooms_min: Optional[StrictInt] = None
     bedrooms_min: Optional[StrictInt] = None
+    brand_name: Optional[StrictStr] = None
     check_in_time: Optional[StrictStr] = None
     check_out_time: Optional[StrictStr] = None
     city: Optional[StrictStr] = None
@@ -72,10 +73,15 @@ class SlimStandardizedStay(BaseModel):
     raw_amenities: Optional[List[StrictStr]] = None
     region: Optional[StrictStr] = None
     review_topics: Optional[List[StayReviewTopic]] = None
+    selected_supplier_id: Optional[StrictStr] = None
+    selected_supplier_name: Optional[StrictStr] = None
     sleeps: Optional[StrictInt] = None
     special_offers: Optional[StrictBool] = None
     stay_kind: StrictStr
-    __properties: ClassVar[List[str]] = ["address", "amenity_types", "bathrooms_min", "bedrooms_min", "check_in_time", "check_out_time", "city", "country_code", "deal", "description", "distance_from_beach_km", "eco_certified", "free_cancellation", "hotel_class", "id", "images", "is_vacation_rental", "lat", "location_rating", "lon", "name", "nearby_places", "offer_snapshot", "price_insights", "primary_price_insight", "property_token", "property_type", "provider", "provider_property_id", "provider_urls", "rating_bucket", "rating_count", "rating_distribution", "rating_value", "raw_amenities", "region", "review_topics", "sleeps", "special_offers", "stay_kind"]
+    supplier_match: Optional[StrictStr] = None
+    supplier_policy_ids: Optional[List[StrictStr]] = None
+    supplier_policy_mode: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["address", "amenity_types", "bathrooms_min", "bedrooms_min", "brand_name", "check_in_time", "check_out_time", "city", "country_code", "deal", "description", "distance_from_beach_km", "eco_certified", "free_cancellation", "hotel_class", "id", "images", "is_vacation_rental", "lat", "location_rating", "lon", "name", "nearby_places", "offer_snapshot", "price_insights", "primary_price_insight", "property_token", "property_type", "provider", "provider_property_id", "provider_urls", "rating_bucket", "rating_count", "rating_distribution", "rating_value", "raw_amenities", "region", "review_topics", "selected_supplier_id", "selected_supplier_name", "sleeps", "special_offers", "stay_kind", "supplier_match", "supplier_policy_ids", "supplier_policy_mode"]
 
     @field_validator('property_type')
     def property_type_validate_enum(cls, value):
@@ -194,6 +200,11 @@ class SlimStandardizedStay(BaseModel):
         if self.bedrooms_min is None and "bedrooms_min" in self.model_fields_set:
             _dict['bedrooms_min'] = None
 
+        # set to None if brand_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.brand_name is None and "brand_name" in self.model_fields_set:
+            _dict['brand_name'] = None
+
         # set to None if check_in_time (nullable) is None
         # and model_fields_set contains the field
         if self.check_in_time is None and "check_in_time" in self.model_fields_set:
@@ -304,6 +315,16 @@ class SlimStandardizedStay(BaseModel):
         if self.region is None and "region" in self.model_fields_set:
             _dict['region'] = None
 
+        # set to None if selected_supplier_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.selected_supplier_id is None and "selected_supplier_id" in self.model_fields_set:
+            _dict['selected_supplier_id'] = None
+
+        # set to None if selected_supplier_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.selected_supplier_name is None and "selected_supplier_name" in self.model_fields_set:
+            _dict['selected_supplier_name'] = None
+
         # set to None if sleeps (nullable) is None
         # and model_fields_set contains the field
         if self.sleeps is None and "sleeps" in self.model_fields_set:
@@ -313,6 +334,16 @@ class SlimStandardizedStay(BaseModel):
         # and model_fields_set contains the field
         if self.special_offers is None and "special_offers" in self.model_fields_set:
             _dict['special_offers'] = None
+
+        # set to None if supplier_match (nullable) is None
+        # and model_fields_set contains the field
+        if self.supplier_match is None and "supplier_match" in self.model_fields_set:
+            _dict['supplier_match'] = None
+
+        # set to None if supplier_policy_mode (nullable) is None
+        # and model_fields_set contains the field
+        if self.supplier_policy_mode is None and "supplier_policy_mode" in self.model_fields_set:
+            _dict['supplier_policy_mode'] = None
 
         return _dict
 
@@ -330,6 +361,7 @@ class SlimStandardizedStay(BaseModel):
             "amenity_types": obj.get("amenity_types"),
             "bathrooms_min": obj.get("bathrooms_min"),
             "bedrooms_min": obj.get("bedrooms_min"),
+            "brand_name": obj.get("brand_name"),
             "check_in_time": obj.get("check_in_time"),
             "check_out_time": obj.get("check_out_time"),
             "city": obj.get("city"),
@@ -363,9 +395,14 @@ class SlimStandardizedStay(BaseModel):
             "raw_amenities": obj.get("raw_amenities"),
             "region": obj.get("region"),
             "review_topics": [StayReviewTopic.from_dict(_item) for _item in obj["review_topics"]] if obj.get("review_topics") is not None else None,
+            "selected_supplier_id": obj.get("selected_supplier_id"),
+            "selected_supplier_name": obj.get("selected_supplier_name"),
             "sleeps": obj.get("sleeps"),
             "special_offers": obj.get("special_offers"),
-            "stay_kind": obj.get("stay_kind")
+            "stay_kind": obj.get("stay_kind"),
+            "supplier_match": obj.get("supplier_match"),
+            "supplier_policy_ids": obj.get("supplier_policy_ids"),
+            "supplier_policy_mode": obj.get("supplier_policy_mode")
         })
         return _obj
 

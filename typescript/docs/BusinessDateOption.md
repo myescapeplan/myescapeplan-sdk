@@ -9,6 +9,7 @@ Name | Type
 `dateOptionId` | string
 `dateType` | string
 `endDate` | Date
+`events` | [BusinessTrackSummary](BusinessTrackSummary.md)
 `flights` | [BusinessTrackSummary](BusinessTrackSummary.md)
 `hotels` | [BusinessTrackSummary](BusinessTrackSummary.md)
 `nights` | number
@@ -30,6 +31,7 @@ const example = {
   "dateOptionId": null,
   "dateType": null,
   "endDate": null,
+  "events": null,
   "flights": null,
   "hotels": null,
   "nights": null,

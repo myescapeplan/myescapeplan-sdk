@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { BudgetMinAmount } from './BudgetMinAmount';
+import {
+    BudgetMinAmountFromJSON,
+    BudgetMinAmountFromJSONTyped,
+    BudgetMinAmountToJSON,
+    BudgetMinAmountToJSONTyped,
+} from './BudgetMinAmount';
 import type { BudgetAmount } from './BudgetAmount';
 import {
     BudgetAmountFromJSON,
@@ -45,6 +52,12 @@ export interface DiscoveryInterpretation {
      * @memberof DiscoveryInterpretation
      */
     budgetCurrency?: string | null;
+    /**
+     * 
+     * @type {BudgetMinAmount}
+     * @memberof DiscoveryInterpretation
+     */
+    budgetMinAmount?: BudgetMinAmount | null;
     /**
      * 
      * @type {string}
@@ -134,6 +147,7 @@ export function DiscoveryInterpretationFromJSONTyped(json: any, ignoreDiscrimina
         'adults': json['adults'] == null ? undefined : json['adults'],
         'budgetAmount': json['budget_amount'] === undefined ? undefined : json['budget_amount'] === null ? null : BudgetAmountFromJSON(json['budget_amount']),
         'budgetCurrency': json['budget_currency'] === undefined ? undefined : json['budget_currency'] === null ? null : json['budget_currency'],
+        'budgetMinAmount': json['budget_min_amount'] === undefined ? undefined : json['budget_min_amount'] === null ? null : BudgetMinAmountFromJSON(json['budget_min_amount']),
         'budgetScope': json['budget_scope'] === undefined ? undefined : json['budget_scope'] === null ? null : json['budget_scope'],
         'categories': json['categories'] == null ? undefined : json['categories'],
         'children': json['children'] == null ? undefined : json['children'],
@@ -162,6 +176,7 @@ export function DiscoveryInterpretationToJSONTyped(value?: DiscoveryInterpretati
         'adults': value['adults'],
         'budget_amount': BudgetAmountToJSON(value['budgetAmount']),
         'budget_currency': value['budgetCurrency'],
+        'budget_min_amount': BudgetMinAmountToJSON(value['budgetMinAmount']),
         'budget_scope': value['budgetScope'],
         'categories': value['categories'],
         'children': value['children'],

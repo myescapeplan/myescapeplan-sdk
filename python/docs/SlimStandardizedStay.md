@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **amenity_types** | **List[str]** |  | [optional] 
 **bathrooms_min** | **int** |  | [optional] 
 **bedrooms_min** | **int** |  | [optional] 
+**brand_name** | **str** |  | [optional] 
 **check_in_time** | **str** |  | [optional] 
 **check_out_time** | **str** |  | [optional] 
 **city** | **str** |  | [optional] 
@@ -42,9 +43,14 @@ Name | Type | Description | Notes
 **raw_amenities** | **List[str]** |  | [optional] 
 **region** | **str** |  | [optional] 
 **review_topics** | [**List[StayReviewTopic]**](StayReviewTopic.md) |  | [optional] 
+**selected_supplier_id** | **str** |  | [optional] 
+**selected_supplier_name** | **str** |  | [optional] 
 **sleeps** | **int** |  | [optional] 
 **special_offers** | **bool** |  | [optional] 
 **stay_kind** | **str** |  | 
+**supplier_match** | **str** |  | [optional] 
+**supplier_policy_ids** | **List[str]** |  | [optional] 
+**supplier_policy_mode** | **str** |  | [optional] 
 
 ## Example
 

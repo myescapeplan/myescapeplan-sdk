@@ -28,7 +28,7 @@ class DiscoveryBudget(BaseModel):
     """
     DiscoveryBudget
     """ # noqa: E501
-    amount: Annotated[int, Field(strict=True, gt=0)]
+    amount: Optional[Annotated[int, Field(strict=True, gt=0)]] = None
     currency: Annotated[str, Field(min_length=3, strict=True, max_length=3)]
     min_amount: Optional[Annotated[int, Field(strict=True, ge=0)]] = None
     scope: Optional[StrictStr] = 'per_person'
@@ -83,6 +83,11 @@ class DiscoveryBudget(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if amount (nullable) is None
+        # and model_fields_set contains the field
+        if self.amount is None and "amount" in self.model_fields_set:
+            _dict['amount'] = None
+
         # set to None if min_amount (nullable) is None
         # and model_fields_set contains the field
         if self.min_amount is None and "min_amount" in self.model_fields_set:

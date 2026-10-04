@@ -67,7 +67,8 @@ export const BusinessTrackSummaryStatusEnum = {
     Partial: 'partial',
     Failed: 'failed',
     NotRequested: 'not_requested',
-    Pending: 'pending'
+    Pending: 'pending',
+    NotConfirmed: 'not_confirmed'
 } as const;
 export type BusinessTrackSummaryStatusEnum = typeof BusinessTrackSummaryStatusEnum[keyof typeof BusinessTrackSummaryStatusEnum];
 

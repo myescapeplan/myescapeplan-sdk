@@ -105,6 +105,12 @@ export interface SlimStandardizedStay {
      * @type {string}
      * @memberof SlimStandardizedStay
      */
+    brandName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SlimStandardizedStay
+     */
     checkInTime?: string | null;
     /**
      * 
@@ -300,6 +306,18 @@ export interface SlimStandardizedStay {
     reviewTopics?: Array<StayReviewTopic>;
     /**
      * 
+     * @type {string}
+     * @memberof SlimStandardizedStay
+     */
+    selectedSupplierId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SlimStandardizedStay
+     */
+    selectedSupplierName?: string | null;
+    /**
+     * 
      * @type {number}
      * @memberof SlimStandardizedStay
      */
@@ -316,6 +334,24 @@ export interface SlimStandardizedStay {
      * @memberof SlimStandardizedStay
      */
     stayKind: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SlimStandardizedStay
+     */
+    supplierMatch?: string | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof SlimStandardizedStay
+     */
+    supplierPolicyIds?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof SlimStandardizedStay
+     */
+    supplierPolicyMode?: string | null;
 }
 
 
@@ -368,6 +404,7 @@ export function SlimStandardizedStayFromJSONTyped(json: any, ignoreDiscriminator
         'amenityTypes': json['amenity_types'] == null ? undefined : json['amenity_types'],
         'bathroomsMin': json['bathrooms_min'] === undefined ? undefined : json['bathrooms_min'] === null ? null : json['bathrooms_min'],
         'bedroomsMin': json['bedrooms_min'] === undefined ? undefined : json['bedrooms_min'] === null ? null : json['bedrooms_min'],
+        'brandName': json['brand_name'] === undefined ? undefined : json['brand_name'] === null ? null : json['brand_name'],
         'checkInTime': json['check_in_time'] === undefined ? undefined : json['check_in_time'] === null ? null : json['check_in_time'],
         'checkOutTime': json['check_out_time'] === undefined ? undefined : json['check_out_time'] === null ? null : json['check_out_time'],
         'city': json['city'] === undefined ? undefined : json['city'] === null ? null : json['city'],
@@ -401,9 +438,14 @@ export function SlimStandardizedStayFromJSONTyped(json: any, ignoreDiscriminator
         'rawAmenities': json['raw_amenities'] == null ? undefined : json['raw_amenities'],
         'region': json['region'] === undefined ? undefined : json['region'] === null ? null : json['region'],
         'reviewTopics': json['review_topics'] == null ? undefined : ((json['review_topics'] as Array<any>).map(StayReviewTopicFromJSON)),
+        'selectedSupplierId': json['selected_supplier_id'] === undefined ? undefined : json['selected_supplier_id'] === null ? null : json['selected_supplier_id'],
+        'selectedSupplierName': json['selected_supplier_name'] === undefined ? undefined : json['selected_supplier_name'] === null ? null : json['selected_supplier_name'],
         'sleeps': json['sleeps'] === undefined ? undefined : json['sleeps'] === null ? null : json['sleeps'],
         'specialOffers': json['special_offers'] === undefined ? undefined : json['special_offers'] === null ? null : json['special_offers'],
         'stayKind': json['stay_kind'],
+        'supplierMatch': json['supplier_match'] === undefined ? undefined : json['supplier_match'] === null ? null : json['supplier_match'],
+        'supplierPolicyIds': json['supplier_policy_ids'] == null ? undefined : json['supplier_policy_ids'],
+        'supplierPolicyMode': json['supplier_policy_mode'] === undefined ? undefined : json['supplier_policy_mode'] === null ? null : json['supplier_policy_mode'],
     };
 }
 
@@ -422,6 +464,7 @@ export function SlimStandardizedStayToJSONTyped(value?: Omit<SlimStandardizedSta
         'amenity_types': value['amenityTypes'],
         'bathrooms_min': value['bathroomsMin'],
         'bedrooms_min': value['bedroomsMin'],
+        'brand_name': value['brandName'],
         'check_in_time': value['checkInTime'],
         'check_out_time': value['checkOutTime'],
         'city': value['city'],
@@ -454,9 +497,14 @@ export function SlimStandardizedStayToJSONTyped(value?: Omit<SlimStandardizedSta
         'raw_amenities': value['rawAmenities'],
         'region': value['region'],
         'review_topics': value['reviewTopics'] == null ? undefined : ((value['reviewTopics'] as Array<any>).map(StayReviewTopicToJSON)),
+        'selected_supplier_id': value['selectedSupplierId'],
+        'selected_supplier_name': value['selectedSupplierName'],
         'sleeps': value['sleeps'],
         'special_offers': value['specialOffers'],
         'stay_kind': value['stayKind'],
+        'supplier_match': value['supplierMatch'],
+        'supplier_policy_ids': value['supplierPolicyIds'],
+        'supplier_policy_mode': value['supplierPolicyMode'],
     };
 }
 

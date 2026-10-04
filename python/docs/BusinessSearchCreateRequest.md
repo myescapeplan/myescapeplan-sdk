@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **flight** | [**StructuredFlight**](StructuredFlight.md) |  | [optional] 
 **include_images** | **bool** | Whether destination and offer image metadata should be included in results and details. | [optional] [default to True]
 **language** | **str** |  | [optional] [default to 'en']
+**locale** | **str** |  | [optional] 
 **max_results** | **int** |  | [optional] [default to 10]
 **opportunity_id** | **str** |  | [optional] 
 **origin** | [**DiscoveryOrigin**](DiscoveryOrigin.md) |  | [optional] 
@@ -25,6 +26,7 @@ Name | Type | Description | Notes
 **preferences** | [**DiscoveryPreferences**](DiscoveryPreferences.md) |  | [optional] 
 **query** | **str** |  | [optional] 
 **stay** | [**StructuredStay**](StructuredStay.md) |  | [optional] 
+**trip_anchor** | [**TripAnchor**](TripAnchor.md) | Known external commitment that the trip must satisfy. The caller supplies the place and required local calendar dates; MyEscapePlan does not discover or verify the event itself. | [optional] 
 
 ## Example
 
