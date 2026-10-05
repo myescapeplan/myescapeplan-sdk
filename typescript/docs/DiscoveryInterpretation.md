@@ -9,6 +9,7 @@ Name | Type
 `adults` | number
 `budgetAmount` | [BudgetAmount](BudgetAmount.md)
 `budgetCurrency` | string
+`budgetMinAmount` | [BudgetMinAmount](BudgetMinAmount.md)
 `budgetScope` | string
 `categories` | Array&lt;string&gt;
 `children` | number
@@ -31,6 +32,7 @@ const example = {
   "adults": null,
   "budgetAmount": null,
   "budgetCurrency": null,
+  "budgetMinAmount": null,
   "budgetScope": null,
   "categories": null,
   "children": null,

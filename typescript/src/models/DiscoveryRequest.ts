@@ -20,6 +20,13 @@ import {
     DiscoveryPartyToJSON,
     DiscoveryPartyToJSONTyped,
 } from './DiscoveryParty';
+import type { TripAnchor } from './TripAnchor';
+import {
+    TripAnchorFromJSON,
+    TripAnchorFromJSONTyped,
+    TripAnchorToJSON,
+    TripAnchorToJSONTyped,
+} from './TripAnchor';
 import type { DiscoveryOrigin } from './DiscoveryOrigin';
 import {
     DiscoveryOriginFromJSON,
@@ -131,6 +138,12 @@ export interface DiscoveryRequest {
     limit?: number | null;
     /**
      * 
+     * @type {string}
+     * @memberof DiscoveryRequest
+     */
+    locale?: string | null;
+    /**
+     * 
      * @type {DiscoveryOrigin}
      * @memberof DiscoveryRequest
      */
@@ -159,6 +172,12 @@ export interface DiscoveryRequest {
      * @memberof DiscoveryRequest
      */
     stay?: StructuredStay | null;
+    /**
+     * Known external commitment that the trip must satisfy. The caller supplies the place and required local calendar dates; MyEscapePlan does not discover or verify the event itself.
+     * @type {TripAnchor}
+     * @memberof DiscoveryRequest
+     */
+    tripAnchor?: TripAnchor | null;
 }
 
 
@@ -200,11 +219,13 @@ export function DiscoveryRequestFromJSONTyped(json: any, ignoreDiscriminator: bo
         'flight': json['flight'] === undefined ? undefined : json['flight'] === null ? null : StructuredFlightFromJSON(json['flight']),
         'language': json['language'] == null ? undefined : json['language'],
         'limit': json['limit'] === undefined ? undefined : json['limit'] === null ? null : json['limit'],
+        'locale': json['locale'] === undefined ? undefined : json['locale'] === null ? null : json['locale'],
         'origin': json['origin'] === undefined ? undefined : json['origin'] === null ? null : DiscoveryOriginFromJSON(json['origin']),
         'party': json['party'] == null ? undefined : DiscoveryPartyFromJSON(json['party']),
         'preferences': json['preferences'] == null ? undefined : DiscoveryPreferencesFromJSON(json['preferences']),
         'query': json['query'] === undefined ? undefined : json['query'] === null ? null : json['query'],
         'stay': json['stay'] === undefined ? undefined : json['stay'] === null ? null : StructuredStayFromJSON(json['stay']),
+        'tripAnchor': json['trip_anchor'] === undefined ? undefined : json['trip_anchor'] === null ? null : TripAnchorFromJSON(json['trip_anchor']),
     };
 }
 
@@ -229,11 +250,13 @@ export function DiscoveryRequestToJSONTyped(value?: DiscoveryRequest | null, ign
         'flight': StructuredFlightToJSON(value['flight']),
         'language': value['language'],
         'limit': value['limit'],
+        'locale': value['locale'],
         'origin': DiscoveryOriginToJSON(value['origin']),
         'party': DiscoveryPartyToJSON(value['party']),
         'preferences': DiscoveryPreferencesToJSON(value['preferences']),
         'query': value['query'],
         'stay': StructuredStayToJSON(value['stay']),
+        'trip_anchor': TripAnchorToJSON(value['tripAnchor']),
     };
 }
 

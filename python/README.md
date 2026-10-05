@@ -52,6 +52,16 @@ The client defaults to `https://api.myescapeplan.app` and already includes the
 `/api/v1/business/...` paths. Do not append `/api/v1/business` to
 `Configuration.host`.
 
+## Trip anchors
+
+The generated `DiscoveryRequest` and `BusinessSearchCreateRequest` models expose
+`trip_anchor` for caller-known commitments such as events, fixtures, conferences,
+cruises, tours or appointments. The caller supplies the destination and required
+local calendar dates; MyEscapePlan plans around them but does not discover or
+verify the external commitment. The default `mode="cover"` requires the complete
+date interval; `mode="overlap"` requires at least one shared local date. V1 does
+not guarantee arrival before a specific clock time.
+
 ## Discovery and verification
 
 Discovery is the planning step and makes no live supplier calls. Use Verified

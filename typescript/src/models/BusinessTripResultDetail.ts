@@ -83,6 +83,13 @@ import {
     DestinationAccessSummaryToJSON,
     DestinationAccessSummaryToJSONTyped,
 } from './DestinationAccessSummary';
+import type { EventDetail } from './EventDetail';
+import {
+    EventDetailFromJSON,
+    EventDetailFromJSONTyped,
+    EventDetailToJSON,
+    EventDetailToJSONTyped,
+} from './EventDetail';
 import type { StayDetail } from './StayDetail';
 import {
     StayDetailFromJSON,
@@ -92,7 +99,7 @@ import {
 } from './StayDetail';
 
 /**
- * Consumer detail projection with event inventory intentionally disabled.
+ * Rich detail projection shared by the consumer and Advisor products.
  * @export
  * @interface BusinessTripResultDetail
  */
@@ -147,10 +154,22 @@ export interface BusinessTripResultDetail {
     errorMessage?: string | null;
     /**
      * 
+     * @type {Array<EventDetail>}
+     * @memberof BusinessTripResultDetail
+     */
+    events?: Array<EventDetail> | null;
+    /**
+     * 
      * @type {Array<FlightDetail>}
      * @memberof BusinessTripResultDetail
      */
     flights?: Array<FlightDetail> | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof BusinessTripResultDetail
+     */
+    hasMoreEvents?: boolean | null;
     /**
      * 
      * @type {boolean}
@@ -240,6 +259,12 @@ export interface BusinessTripResultDetail {
      * @type {number}
      * @memberof BusinessTripResultDetail
      */
+    totalEventsCount?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof BusinessTripResultDetail
+     */
     totalFlightsCount?: number | null;
     /**
      * 
@@ -293,7 +318,9 @@ export function BusinessTripResultDetailFromJSONTyped(json: any, ignoreDiscrimin
         'destinationReason': json['destination_reason'] === undefined ? undefined : json['destination_reason'] === null ? null : DestinationReasonPayloadFromJSON(json['destination_reason']),
         'displayName': json['display_name'] === undefined ? undefined : json['display_name'] === null ? null : json['display_name'],
         'errorMessage': json['error_message'] === undefined ? undefined : json['error_message'] === null ? null : json['error_message'],
+        'events': json['events'] === undefined ? undefined : json['events'] === null ? null : ((json['events'] as Array<any>).map(EventDetailFromJSON)),
         'flights': json['flights'] === undefined ? undefined : json['flights'] === null ? null : ((json['flights'] as Array<any>).map(FlightDetailFromJSON)),
+        'hasMoreEvents': json['has_more_events'] === undefined ? undefined : json['has_more_events'] === null ? null : json['has_more_events'],
         'hasMoreFlights': json['has_more_flights'] === undefined ? undefined : json['has_more_flights'] === null ? null : json['has_more_flights'],
         'hasMoreHotels': json['has_more_hotels'] === undefined ? undefined : json['has_more_hotels'] === null ? null : json['has_more_hotels'],
         'hasMoreVacationRentals': json['has_more_vacation_rentals'] === undefined ? undefined : json['has_more_vacation_rentals'] === null ? null : json['has_more_vacation_rentals'],
@@ -308,6 +335,7 @@ export function BusinessTripResultDetailFromJSONTyped(json: any, ignoreDiscrimin
         'searchId': json['search_id'] === undefined ? undefined : json['search_id'] === null ? null : json['search_id'],
         'specHash': json['spec_hash'] === undefined ? undefined : json['spec_hash'] === null ? null : json['spec_hash'],
         'status': json['status'],
+        'totalEventsCount': json['total_events_count'] === undefined ? undefined : json['total_events_count'] === null ? null : json['total_events_count'],
         'totalFlightsCount': json['total_flights_count'] === undefined ? undefined : json['total_flights_count'] === null ? null : json['total_flights_count'],
         'totalHotelsCount': json['total_hotels_count'] === undefined ? undefined : json['total_hotels_count'] === null ? null : json['total_hotels_count'],
         'totalPrice': json['total_price'] === undefined ? undefined : json['total_price'] === null ? null : TripPriceFromJSON(json['total_price']),
@@ -335,7 +363,9 @@ export function BusinessTripResultDetailToJSONTyped(value?: BusinessTripResultDe
         'destination_reason': DestinationReasonPayloadToJSON(value['destinationReason']),
         'display_name': value['displayName'],
         'error_message': value['errorMessage'],
+        'events': value['events'] == null ? undefined : ((value['events'] as Array<any>).map(EventDetailToJSON)),
         'flights': value['flights'] == null ? undefined : ((value['flights'] as Array<any>).map(FlightDetailToJSON)),
+        'has_more_events': value['hasMoreEvents'],
         'has_more_flights': value['hasMoreFlights'],
         'has_more_hotels': value['hasMoreHotels'],
         'has_more_vacation_rentals': value['hasMoreVacationRentals'],
@@ -350,6 +380,7 @@ export function BusinessTripResultDetailToJSONTyped(value?: BusinessTripResultDe
         'search_id': value['searchId'],
         'spec_hash': value['specHash'],
         'status': value['status'],
+        'total_events_count': value['totalEventsCount'],
         'total_flights_count': value['totalFlightsCount'],
         'total_hotels_count': value['totalHotelsCount'],
         'total_price': TripPriceToJSON(value['totalPrice']),

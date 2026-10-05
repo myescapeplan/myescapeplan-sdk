@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **destination_id** | **UUID** |  | 
 **details_url** | **str** |  | [optional] 
 **display_name** | **str** |  | [optional] 
+**events** | [**BusinessTrackSummary**](BusinessTrackSummary.md) |  | [optional] 
 **features** | **List[str]** |  | [optional] 
 **flights** | [**BusinessTrackSummary**](BusinessTrackSummary.md) |  | 
 **hotels** | [**BusinessTrackSummary**](BusinessTrackSummary.md) |  | 

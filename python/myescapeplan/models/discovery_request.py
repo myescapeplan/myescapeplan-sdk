@@ -28,6 +28,7 @@ from myescapeplan.models.discovery_party import DiscoveryParty
 from myescapeplan.models.discovery_preferences import DiscoveryPreferences
 from myescapeplan.models.structured_flight import StructuredFlight
 from myescapeplan.models.structured_stay import StructuredStay
+from myescapeplan.models.trip_anchor import TripAnchor
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -46,12 +47,14 @@ class DiscoveryRequest(BaseModel):
     flight: Optional[StructuredFlight] = None
     language: Optional[Annotated[str, Field(strict=True, max_length=10)]] = 'en'
     limit: Optional[Annotated[int, Field(le=50, strict=True, ge=1)]] = None
+    locale: Optional[Annotated[str, Field(strict=True, max_length=10)]] = None
     origin: Optional[DiscoveryOrigin] = None
     party: Optional[DiscoveryParty] = None
     preferences: Optional[DiscoveryPreferences] = None
     query: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = None
     stay: Optional[StructuredStay] = None
-    __properties: ClassVar[List[str]] = ["budget", "budget_tier", "categories", "currency", "dates", "destination_airport_iata_codes", "destination_ids", "flight", "language", "limit", "origin", "party", "preferences", "query", "stay"]
+    trip_anchor: Optional[TripAnchor] = Field(default=None, description="Known external commitment that the trip must satisfy. The caller supplies the place and required local calendar dates; MyEscapePlan does not discover or verify the event itself.")
+    __properties: ClassVar[List[str]] = ["budget", "budget_tier", "categories", "currency", "dates", "destination_airport_iata_codes", "destination_ids", "flight", "language", "limit", "locale", "origin", "party", "preferences", "query", "stay", "trip_anchor"]
 
     @field_validator('budget_tier')
     def budget_tier_validate_enum(cls, value):
@@ -123,6 +126,9 @@ class DiscoveryRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of stay
         if self.stay:
             _dict['stay'] = self.stay.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of trip_anchor
+        if self.trip_anchor:
+            _dict['trip_anchor'] = self.trip_anchor.to_dict()
         # set to None if budget (nullable) is None
         # and model_fields_set contains the field
         if self.budget is None and "budget" in self.model_fields_set:
@@ -158,6 +164,11 @@ class DiscoveryRequest(BaseModel):
         if self.limit is None and "limit" in self.model_fields_set:
             _dict['limit'] = None
 
+        # set to None if locale (nullable) is None
+        # and model_fields_set contains the field
+        if self.locale is None and "locale" in self.model_fields_set:
+            _dict['locale'] = None
+
         # set to None if origin (nullable) is None
         # and model_fields_set contains the field
         if self.origin is None and "origin" in self.model_fields_set:
@@ -172,6 +183,11 @@ class DiscoveryRequest(BaseModel):
         # and model_fields_set contains the field
         if self.stay is None and "stay" in self.model_fields_set:
             _dict['stay'] = None
+
+        # set to None if trip_anchor (nullable) is None
+        # and model_fields_set contains the field
+        if self.trip_anchor is None and "trip_anchor" in self.model_fields_set:
+            _dict['trip_anchor'] = None
 
         return _dict
 
@@ -195,11 +211,13 @@ class DiscoveryRequest(BaseModel):
             "flight": StructuredFlight.from_dict(obj["flight"]) if obj.get("flight") is not None else None,
             "language": obj.get("language") if obj.get("language") is not None else 'en',
             "limit": obj.get("limit"),
+            "locale": obj.get("locale"),
             "origin": DiscoveryOrigin.from_dict(obj["origin"]) if obj.get("origin") is not None else None,
             "party": DiscoveryParty.from_dict(obj["party"]) if obj.get("party") is not None else None,
             "preferences": DiscoveryPreferences.from_dict(obj["preferences"]) if obj.get("preferences") is not None else None,
             "query": obj.get("query"),
-            "stay": StructuredStay.from_dict(obj["stay"]) if obj.get("stay") is not None else None
+            "stay": StructuredStay.from_dict(obj["stay"]) if obj.get("stay") is not None else None,
+            "trip_anchor": TripAnchor.from_dict(obj["trip_anchor"]) if obj.get("trip_anchor") is not None else None
         })
         return _obj
 

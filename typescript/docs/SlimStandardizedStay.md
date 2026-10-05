@@ -10,6 +10,7 @@ Name | Type
 `amenityTypes` | Array&lt;string&gt;
 `bathroomsMin` | number
 `bedroomsMin` | number
+`brandName` | string
 `checkInTime` | string
 `checkOutTime` | string
 `city` | string
@@ -43,9 +44,14 @@ Name | Type
 `rawAmenities` | Array&lt;string&gt;
 `region` | string
 `reviewTopics` | [Array&lt;StayReviewTopic&gt;](StayReviewTopic.md)
+`selectedSupplierId` | string
+`selectedSupplierName` | string
 `sleeps` | number
 `specialOffers` | boolean
 `stayKind` | string
+`supplierMatch` | string
+`supplierPolicyIds` | Array&lt;string&gt;
+`supplierPolicyMode` | string
 
 ## Example
 
@@ -58,6 +64,7 @@ const example = {
   "amenityTypes": null,
   "bathroomsMin": null,
   "bedroomsMin": null,
+  "brandName": null,
   "checkInTime": null,
   "checkOutTime": null,
   "city": null,
@@ -91,9 +98,14 @@ const example = {
   "rawAmenities": null,
   "region": null,
   "reviewTopics": null,
+  "selectedSupplierId": null,
+  "selectedSupplierName": null,
   "sleeps": null,
   "specialOffers": null,
   "stayKind": null,
+  "supplierMatch": null,
+  "supplierPolicyIds": null,
+  "supplierPolicyMode": null,
 } satisfies SlimStandardizedStay
 
 console.log(example)

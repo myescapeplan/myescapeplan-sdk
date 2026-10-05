@@ -15,6 +15,7 @@ Name | Type
 `destinationId` | string
 `detailsUrl` | string
 `displayName` | string
+`events` | [BusinessTrackSummary](BusinessTrackSummary.md)
 `features` | Array&lt;string&gt;
 `flights` | [BusinessTrackSummary](BusinessTrackSummary.md)
 `hotels` | [BusinessTrackSummary](BusinessTrackSummary.md)
@@ -48,6 +49,7 @@ const example = {
   "destinationId": null,
   "detailsUrl": null,
   "displayName": null,
+  "events": null,
   "features": null,
   "flights": null,
   "hotels": null,

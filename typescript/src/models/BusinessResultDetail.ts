@@ -34,6 +34,13 @@ import {
     BusinessSearchResultToJSON,
     BusinessSearchResultToJSONTyped,
 } from './BusinessSearchResult';
+import type { StandardizedEvent } from './StandardizedEvent';
+import {
+    StandardizedEventFromJSON,
+    StandardizedEventFromJSONTyped,
+    StandardizedEventToJSON,
+    StandardizedEventToJSONTyped,
+} from './StandardizedEvent';
 import type { WeatherHint } from './WeatherHint';
 import {
     WeatherHintFromJSON,
@@ -96,10 +103,22 @@ export interface BusinessResultDetail {
     detail: BusinessTripResultDetail;
     /**
      * 
+     * @type {Array<StandardizedEvent>}
+     * @memberof BusinessResultDetail
+     */
+    events?: Array<StandardizedEvent>;
+    /**
+     * 
      * @type {Array<SlimStandardizedFlightOffer>}
      * @memberof BusinessResultDetail
      */
     flights?: Array<SlimStandardizedFlightOffer>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof BusinessResultDetail
+     */
+    hasMoreEvents?: boolean;
     /**
      * 
      * @type {boolean}
@@ -193,7 +212,9 @@ export function BusinessResultDetailFromJSONTyped(json: any, ignoreDiscriminator
         'affiliateLinks': json['affiliate_links'] == null ? undefined : ((json['affiliate_links'] as Array<any>).map(AffiliateLinkFromJSON)),
         'destinationAccess': json['destination_access'] === undefined ? undefined : json['destination_access'] === null ? null : DestinationAccessSummaryFromJSON(json['destination_access']),
         'detail': BusinessTripResultDetailFromJSON(json['detail']),
+        'events': json['events'] == null ? undefined : ((json['events'] as Array<any>).map(StandardizedEventFromJSON)),
         'flights': json['flights'] == null ? undefined : ((json['flights'] as Array<any>).map(SlimStandardizedFlightOfferFromJSON)),
+        'hasMoreEvents': json['has_more_events'] == null ? undefined : json['has_more_events'],
         'hasMoreFlights': json['has_more_flights'] == null ? undefined : json['has_more_flights'],
         'hasMoreHotels': json['has_more_hotels'] == null ? undefined : json['has_more_hotels'],
         'hasMoreRentals': json['has_more_rentals'] == null ? undefined : json['has_more_rentals'],
@@ -220,7 +241,9 @@ export function BusinessResultDetailToJSONTyped(value?: BusinessResultDetail | n
         'affiliate_links': value['affiliateLinks'] == null ? undefined : ((value['affiliateLinks'] as Array<any>).map(AffiliateLinkToJSON)),
         'destination_access': DestinationAccessSummaryToJSON(value['destinationAccess']),
         'detail': BusinessTripResultDetailToJSON(value['detail']),
+        'events': value['events'] == null ? undefined : ((value['events'] as Array<any>).map(StandardizedEventToJSON)),
         'flights': value['flights'] == null ? undefined : ((value['flights'] as Array<any>).map(SlimStandardizedFlightOfferToJSON)),
+        'has_more_events': value['hasMoreEvents'],
         'has_more_flights': value['hasMoreFlights'],
         'has_more_hotels': value['hasMoreHotels'],
         'has_more_rentals': value['hasMoreRentals'],

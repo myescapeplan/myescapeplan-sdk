@@ -39,10 +39,28 @@ export interface AirportRef {
     iata: string;
     /**
      * 
+     * @type {number}
+     * @memberof AirportRef
+     */
+    lat?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof AirportRef
+     */
+    lon?: number | null;
+    /**
+     * 
      * @type {string}
      * @memberof AirportRef
      */
     name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AirportRef
+     */
+    placeId?: string | null;
 }
 
 /**
@@ -69,7 +87,10 @@ export function AirportRefFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'city': json['city'],
         'country': json['country'],
         'iata': json['iata'],
+        'lat': json['lat'] === undefined ? undefined : json['lat'] === null ? null : json['lat'],
+        'lon': json['lon'] === undefined ? undefined : json['lon'] === null ? null : json['lon'],
         'name': json['name'],
+        'placeId': json['place_id'] === undefined ? undefined : json['place_id'] === null ? null : json['place_id'],
     };
 }
 
@@ -87,7 +108,10 @@ export function AirportRefToJSONTyped(value?: AirportRef | null, ignoreDiscrimin
         'city': value['city'],
         'country': value['country'],
         'iata': value['iata'],
+        'lat': value['lat'],
+        'lon': value['lon'],
         'name': value['name'],
+        'place_id': value['placeId'],
     };
 }
 

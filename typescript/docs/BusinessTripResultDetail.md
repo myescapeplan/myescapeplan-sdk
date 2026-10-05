@@ -1,7 +1,7 @@
 
 # BusinessTripResultDetail
 
-Consumer detail projection with event inventory intentionally disabled.
+Rich detail projection shared by the consumer and Advisor products.
 
 ## Properties
 
@@ -15,7 +15,9 @@ Name | Type
 `destinationReason` | [DestinationReasonPayload](DestinationReasonPayload.md)
 `displayName` | string
 `errorMessage` | string
+`events` | [Array&lt;EventDetail&gt;](EventDetail.md)
 `flights` | [Array&lt;FlightDetail&gt;](FlightDetail.md)
+`hasMoreEvents` | boolean
 `hasMoreFlights` | boolean
 `hasMoreHotels` | boolean
 `hasMoreVacationRentals` | boolean
@@ -30,6 +32,7 @@ Name | Type
 `searchId` | string
 `specHash` | string
 `status` | string
+`totalEventsCount` | number
 `totalFlightsCount` | number
 `totalHotelsCount` | number
 `totalPrice` | [TripPrice](TripPrice.md)
@@ -51,7 +54,9 @@ const example = {
   "destinationReason": null,
   "displayName": null,
   "errorMessage": null,
+  "events": null,
   "flights": null,
+  "hasMoreEvents": null,
   "hasMoreFlights": null,
   "hasMoreHotels": null,
   "hasMoreVacationRentals": null,
@@ -66,6 +71,7 @@ const example = {
   "searchId": null,
   "specHash": null,
   "status": null,
+  "totalEventsCount": null,
   "totalFlightsCount": null,
   "totalHotelsCount": null,
   "totalPrice": null,

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **country_code** | **str** |  | [optional] 
 **display_name** | **str** |  | 
 **id** | **UUID** |  | 
+**image_url** | **str** |  | [optional] 
 **kind** | **str** |  | [optional] 
 **lat** | **float** |  | [optional] 
 **lon** | **float** |  | [optional] 

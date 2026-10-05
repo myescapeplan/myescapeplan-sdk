@@ -20,6 +20,13 @@ import {
     DiscoveryPartyToJSON,
     DiscoveryPartyToJSONTyped,
 } from './DiscoveryParty';
+import type { TripAnchor } from './TripAnchor';
+import {
+    TripAnchorFromJSON,
+    TripAnchorFromJSONTyped,
+    TripAnchorToJSON,
+    TripAnchorToJSONTyped,
+} from './TripAnchor';
 import type { DiscoveryOrigin } from './DiscoveryOrigin';
 import {
     DiscoveryOriginFromJSON,
@@ -143,6 +150,12 @@ export interface BusinessSearchCreateRequest {
     language?: string;
     /**
      * 
+     * @type {string}
+     * @memberof BusinessSearchCreateRequest
+     */
+    locale?: string | null;
+    /**
+     * 
      * @type {number}
      * @memberof BusinessSearchCreateRequest
      */
@@ -183,6 +196,12 @@ export interface BusinessSearchCreateRequest {
      * @memberof BusinessSearchCreateRequest
      */
     stay?: StructuredStay | null;
+    /**
+     * Known external commitment that the trip must satisfy. The caller supplies the place and required local calendar dates; MyEscapePlan does not discover or verify the event itself.
+     * @type {TripAnchor}
+     * @memberof BusinessSearchCreateRequest
+     */
+    tripAnchor?: TripAnchor | null;
 }
 
 
@@ -226,6 +245,7 @@ export function BusinessSearchCreateRequestFromJSONTyped(json: any, ignoreDiscri
         'flight': json['flight'] === undefined ? undefined : json['flight'] === null ? null : StructuredFlightFromJSON(json['flight']),
         'includeImages': json['include_images'] == null ? undefined : json['include_images'],
         'language': json['language'] == null ? undefined : json['language'],
+        'locale': json['locale'] === undefined ? undefined : json['locale'] === null ? null : json['locale'],
         'maxResults': json['max_results'] == null ? undefined : json['max_results'],
         'opportunityId': json['opportunity_id'] === undefined ? undefined : json['opportunity_id'] === null ? null : json['opportunity_id'],
         'origin': json['origin'] === undefined ? undefined : json['origin'] === null ? null : DiscoveryOriginFromJSON(json['origin']),
@@ -233,6 +253,7 @@ export function BusinessSearchCreateRequestFromJSONTyped(json: any, ignoreDiscri
         'preferences': json['preferences'] == null ? undefined : DiscoveryPreferencesFromJSON(json['preferences']),
         'query': json['query'] === undefined ? undefined : json['query'] === null ? null : json['query'],
         'stay': json['stay'] === undefined ? undefined : json['stay'] === null ? null : StructuredStayFromJSON(json['stay']),
+        'tripAnchor': json['trip_anchor'] === undefined ? undefined : json['trip_anchor'] === null ? null : TripAnchorFromJSON(json['trip_anchor']),
     };
 }
 
@@ -259,6 +280,7 @@ export function BusinessSearchCreateRequestToJSONTyped(value?: BusinessSearchCre
         'flight': StructuredFlightToJSON(value['flight']),
         'include_images': value['includeImages'],
         'language': value['language'],
+        'locale': value['locale'],
         'max_results': value['maxResults'],
         'opportunity_id': value['opportunityId'],
         'origin': DiscoveryOriginToJSON(value['origin']),
@@ -266,6 +288,7 @@ export function BusinessSearchCreateRequestToJSONTyped(value?: BusinessSearchCre
         'preferences': DiscoveryPreferencesToJSON(value['preferences']),
         'query': value['query'],
         'stay': StructuredStayToJSON(value['stay']),
+        'trip_anchor': TripAnchorToJSON(value['tripAnchor']),
     };
 }
 

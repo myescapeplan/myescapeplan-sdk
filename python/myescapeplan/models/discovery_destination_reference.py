@@ -32,11 +32,12 @@ class DiscoveryDestinationReference(BaseModel):
     country_code: Optional[StrictStr] = None
     display_name: StrictStr
     id: UUID
+    image_url: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
     kind: Optional[StrictStr] = None
     lat: Optional[Union[Annotated[float, Field(le=90.0, strict=True, ge=-90.0)], Annotated[int, Field(le=90, strict=True, ge=-90)]]] = None
     lon: Optional[Union[Annotated[float, Field(le=180.0, strict=True, ge=-180.0)], Annotated[int, Field(le=180, strict=True, ge=-180)]]] = None
     name: StrictStr
-    __properties: ClassVar[List[str]] = ["country_code", "display_name", "id", "kind", "lat", "lon", "name"]
+    __properties: ClassVar[List[str]] = ["country_code", "display_name", "id", "image_url", "kind", "lat", "lon", "name"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -82,6 +83,11 @@ class DiscoveryDestinationReference(BaseModel):
         if self.country_code is None and "country_code" in self.model_fields_set:
             _dict['country_code'] = None
 
+        # set to None if image_url (nullable) is None
+        # and model_fields_set contains the field
+        if self.image_url is None and "image_url" in self.model_fields_set:
+            _dict['image_url'] = None
+
         # set to None if kind (nullable) is None
         # and model_fields_set contains the field
         if self.kind is None and "kind" in self.model_fields_set:
@@ -112,6 +118,7 @@ class DiscoveryDestinationReference(BaseModel):
             "country_code": obj.get("country_code"),
             "display_name": obj.get("display_name"),
             "id": obj.get("id"),
+            "image_url": obj.get("image_url"),
             "kind": obj.get("kind"),
             "lat": obj.get("lat"),
             "lon": obj.get("lon"),

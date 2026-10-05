@@ -19,6 +19,7 @@ Name | Type
 `flight` | [StructuredFlight](StructuredFlight.md)
 `includeImages` | boolean
 `language` | string
+`locale` | string
 `maxResults` | number
 `opportunityId` | string
 `origin` | [DiscoveryOrigin](DiscoveryOrigin.md)
@@ -26,6 +27,7 @@ Name | Type
 `preferences` | [DiscoveryPreferences](DiscoveryPreferences.md)
 `query` | string
 `stay` | [StructuredStay](StructuredStay.md)
+`tripAnchor` | [TripAnchor](TripAnchor.md)
 
 ## Example
 
@@ -46,6 +48,7 @@ const example = {
   "flight": null,
   "includeImages": null,
   "language": null,
+  "locale": null,
   "maxResults": null,
   "opportunityId": null,
   "origin": null,
@@ -53,6 +56,7 @@ const example = {
   "preferences": null,
   "query": null,
   "stay": null,
+  "tripAnchor": null,
 } satisfies BusinessSearchCreateRequest
 
 console.log(example)

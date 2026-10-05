@@ -9,7 +9,10 @@ Name | Type
 `city` | string
 `country` | string
 `iata` | string
+`lat` | number
+`lon` | number
 `name` | string
+`placeId` | string
 
 ## Example
 
@@ -21,7 +24,10 @@ const example = {
   "city": null,
   "country": null,
   "iata": null,
+  "lat": null,
+  "lon": null,
   "name": null,
+  "placeId": null,
 } satisfies AirportRef
 
 console.log(example)

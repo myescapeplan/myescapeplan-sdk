@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**amount** | **int** |  | 
+**amount** | **int** |  | [optional] 
 **currency** | **str** |  | 
 **min_amount** | **int** |  | [optional] 
 **scope** | **str** |  | [optional] [default to 'per_person']

@@ -139,6 +139,12 @@ export interface BusinessSearchResult {
     displayName?: string | null;
     /**
      * 
+     * @type {BusinessTrackSummary}
+     * @memberof BusinessSearchResult
+     */
+    events?: BusinessTrackSummary;
+    /**
+     * 
      * @type {Array<string>}
      * @memberof BusinessSearchResult
      */
@@ -281,6 +287,7 @@ export function BusinessSearchResultFromJSONTyped(json: any, ignoreDiscriminator
         'destinationId': json['destination_id'],
         'detailsUrl': json['details_url'] === undefined ? undefined : json['details_url'] === null ? null : json['details_url'],
         'displayName': json['display_name'] === undefined ? undefined : json['display_name'] === null ? null : json['display_name'],
+        'events': json['events'] == null ? undefined : BusinessTrackSummaryFromJSON(json['events']),
         'features': json['features'] == null ? undefined : json['features'],
         'flights': BusinessTrackSummaryFromJSON(json['flights']),
         'hotels': BusinessTrackSummaryFromJSON(json['hotels']),
@@ -320,6 +327,7 @@ export function BusinessSearchResultToJSONTyped(value?: BusinessSearchResult | n
         'destination_id': value['destinationId'],
         'details_url': value['detailsUrl'],
         'display_name': value['displayName'],
+        'events': BusinessTrackSummaryToJSON(value['events']),
         'features': value['features'],
         'flights': BusinessTrackSummaryToJSON(value['flights']),
         'hotels': BusinessTrackSummaryToJSON(value['hotels']),

@@ -17,11 +17,13 @@ Name | Type
 `flight` | [StructuredFlight](StructuredFlight.md)
 `language` | string
 `limit` | number
+`locale` | string
 `origin` | [DiscoveryOrigin](DiscoveryOrigin.md)
 `party` | [DiscoveryParty](DiscoveryParty.md)
 `preferences` | [DiscoveryPreferences](DiscoveryPreferences.md)
 `query` | string
 `stay` | [StructuredStay](StructuredStay.md)
+`tripAnchor` | [TripAnchor](TripAnchor.md)
 
 ## Example
 
@@ -40,11 +42,13 @@ const example = {
   "flight": null,
   "language": null,
   "limit": null,
+  "locale": null,
   "origin": null,
   "party": null,
   "preferences": null,
   "query": null,
   "stay": null,
+  "tripAnchor": null,
 } satisfies DiscoveryRequest
 
 console.log(example)

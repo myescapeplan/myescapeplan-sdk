@@ -9,7 +9,9 @@ Name | Type | Description | Notes
 **affiliate_links** | [**List[AffiliateLink]**](AffiliateLink.md) |  | [optional] 
 **destination_access** | [**DestinationAccessSummary**](DestinationAccessSummary.md) |  | [optional] 
 **detail** | [**BusinessTripResultDetail**](BusinessTripResultDetail.md) |  | 
+**events** | [**List[StandardizedEvent]**](StandardizedEvent.md) |  | [optional] 
 **flights** | [**List[SlimStandardizedFlightOffer]**](SlimStandardizedFlightOffer.md) |  | [optional] 
+**has_more_events** | **bool** |  | [optional] [default to False]
 **has_more_flights** | **bool** |  | [optional] [default to False]
 **has_more_hotels** | **bool** |  | [optional] [default to False]
 **has_more_rentals** | **bool** |  | [optional] [default to False]

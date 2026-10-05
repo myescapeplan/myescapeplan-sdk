@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **adults** | **int** |  | [optional] [default to 1]
 **budget_amount** | [**BudgetAmount**](BudgetAmount.md) |  | [optional] 
 **budget_currency** | **str** |  | [optional] 
+**budget_min_amount** | [**BudgetMinAmount**](BudgetMinAmount.md) |  | [optional] 
 **budget_scope** | **str** |  | [optional] 
 **categories** | **List[str]** |  | [optional] 
 **children** | **int** |  | [optional] [default to 0]

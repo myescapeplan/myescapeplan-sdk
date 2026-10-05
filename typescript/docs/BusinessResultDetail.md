@@ -10,7 +10,9 @@ Name | Type
 `affiliateLinks` | [Array&lt;AffiliateLink&gt;](AffiliateLink.md)
 `destinationAccess` | [DestinationAccessSummary](DestinationAccessSummary.md)
 `detail` | [BusinessTripResultDetail](BusinessTripResultDetail.md)
+`events` | [Array&lt;StandardizedEvent&gt;](StandardizedEvent.md)
 `flights` | [Array&lt;SlimStandardizedFlightOffer&gt;](SlimStandardizedFlightOffer.md)
+`hasMoreEvents` | boolean
 `hasMoreFlights` | boolean
 `hasMoreHotels` | boolean
 `hasMoreRentals` | boolean
@@ -31,7 +33,9 @@ const example = {
   "affiliateLinks": null,
   "destinationAccess": null,
   "detail": null,
+  "events": null,
   "flights": null,
+  "hasMoreEvents": null,
   "hasMoreFlights": null,
   "hasMoreHotels": null,
   "hasMoreRentals": null,

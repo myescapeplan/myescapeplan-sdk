@@ -16,11 +16,13 @@ Name | Type | Description | Notes
 **flight** | [**StructuredFlight**](StructuredFlight.md) |  | [optional] 
 **language** | **str** |  | [optional] [default to 'en']
 **limit** | **int** |  | [optional] 
+**locale** | **str** |  | [optional] 
 **origin** | [**DiscoveryOrigin**](DiscoveryOrigin.md) |  | [optional] 
 **party** | [**DiscoveryParty**](DiscoveryParty.md) |  | [optional] 
 **preferences** | [**DiscoveryPreferences**](DiscoveryPreferences.md) |  | [optional] 
 **query** | **str** |  | [optional] 
 **stay** | [**StructuredStay**](StructuredStay.md) |  | [optional] 
+**trip_anchor** | [**TripAnchor**](TripAnchor.md) | Known external commitment that the trip must satisfy. The caller supplies the place and required local calendar dates; MyEscapePlan does not discover or verify the event itself. | [optional] 
 
 ## Example
 

@@ -1,6 +1,6 @@
 # BusinessDetailDateOption
 
-Date-option detail without the disabled event inventory track.
+Date-option detail with date-scoped component inventory.
 
 ## Properties
 
@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **candidate_id** | **str** |  | [optional] 
 **date_option_kind** | [**DateOptionKind**](DateOptionKind.md) |  | [optional] 
 **dates** | [**DateRange**](DateRange.md) |  | 
+**event_summary** | [**DateOptionComponentSummary**](DateOptionComponentSummary.md) |  | [optional] 
 **flight_summary** | [**DateOptionComponentSummary**](DateOptionComponentSummary.md) |  | [optional] 
 **hotel_summary** | [**DateOptionComponentSummary**](DateOptionComponentSummary.md) |  | [optional] 
 **price_insights** | [**List[PriceInsight]**](PriceInsight.md) |  | [optional] 

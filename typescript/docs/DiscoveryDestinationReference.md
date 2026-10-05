@@ -10,6 +10,7 @@ Name | Type
 `countryCode` | string
 `displayName` | string
 `id` | string
+`imageUrl` | string
 `kind` | string
 `lat` | number
 `lon` | number
@@ -25,6 +26,7 @@ const example = {
   "countryCode": null,
   "displayName": null,
   "id": null,
+  "imageUrl": null,
   "kind": null,
   "lat": null,
   "lon": null,

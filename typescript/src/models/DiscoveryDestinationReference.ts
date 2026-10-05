@@ -42,6 +42,12 @@ export interface DiscoveryDestinationReference {
      * @type {string}
      * @memberof DiscoveryDestinationReference
      */
+    imageUrl?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof DiscoveryDestinationReference
+     */
     kind?: string | null;
     /**
      * 
@@ -86,6 +92,7 @@ export function DiscoveryDestinationReferenceFromJSONTyped(json: any, ignoreDisc
         'countryCode': json['country_code'] === undefined ? undefined : json['country_code'] === null ? null : json['country_code'],
         'displayName': json['display_name'],
         'id': json['id'],
+        'imageUrl': json['image_url'] === undefined ? undefined : json['image_url'] === null ? null : json['image_url'],
         'kind': json['kind'] === undefined ? undefined : json['kind'] === null ? null : json['kind'],
         'lat': json['lat'] === undefined ? undefined : json['lat'] === null ? null : json['lat'],
         'lon': json['lon'] === undefined ? undefined : json['lon'] === null ? null : json['lon'],
@@ -107,6 +114,7 @@ export function DiscoveryDestinationReferenceToJSONTyped(value?: DiscoveryDestin
         'country_code': value['countryCode'],
         'display_name': value['displayName'],
         'id': value['id'],
+        'image_url': value['imageUrl'],
         'kind': value['kind'],
         'lat': value['lat'],
         'lon': value['lon'],

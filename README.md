@@ -7,8 +7,9 @@
 [![Python](https://img.shields.io/badge/SDK-Python-6A4FD0)](python/README.md)
 
 Official TypeScript and Python SDKs for the **MyEscapePlan Travel Discovery API**.
-Turn open-ended travel intent into ranked destinations and date opportunities
-before downstream flight, hotel or other inventory shopping.
+Turn open-ended travel intent, or a known real-world commitment, into ranked
+destinations and date opportunities before downstream flight, hotel or other
+inventory shopping.
 
 **Developer hub:** https://business.myescapeplan.app/developers
 **Discovery overview:** https://business.myescapeplan.app/discovery
@@ -48,6 +49,7 @@ travel opportunities that downstream systems can shop, verify or present.
 | Conversational OTA search | A pre-shopping shortlist before inventory fan-out |
 | Destination recommendation | Ranked places with reasons and qualitative fit |
 | Flexible-date travel search | Date opportunities and trip lengths around user constraints |
+| Known events and commitments | Deterministic trip planning around caller-supplied local dates and destination |
 | Advisor and travel-platform workflows | Discovery first, optional provider-backed verification second |
 
 ## Use the SDKs
@@ -129,6 +131,35 @@ async def main() -> None:
 asyncio.run(main())
 ```
 
+## Plan around known commitments
+
+Discovery also accepts a caller-supplied `trip_anchor` when another system already
+knows about a commitment such as a concert, sporting fixture, conference, cruise,
+tour or appointment.
+
+```json
+{
+  "query": "4 night trip for a concert",
+  "origin": { "query": "London" },
+  "trip_anchor": {
+    "type": "event",
+    "title": "Concert",
+    "destination": { "query": "Barcelona, Spain" },
+    "required_presence": {
+      "start_date": "2026-11-18",
+      "end_date": "2026-11-18"
+    }
+  },
+  "dates": { "duration_nights": 4 }
+}
+```
+
+The caller supplies the known commitment. MyEscapePlan does not discover or
+verify the event itself. By default, `mode="cover"` requires the trip to include
+the full required local-date interval; `mode="overlap"` requires at least one
+shared local date. V1 is calendar-date grained, so neither mode guarantees that
+a flight arrives before a specific event clock time.
+
 ## Discovery → Verified Search
 
 Discovery is synchronous planning and makes no live supplier calls. If your
@@ -168,8 +199,9 @@ const results = await api.getSearchResults({ searchId: job.id });
 
 The generated clients expose the current Business v1 contract, including:
 
-- Discovery: natural-language and structured travel discovery.
+- Discovery: natural-language and structured travel discovery, including caller-supplied trip anchors for known commitments.
 - Destination lookup: destination resolution against the active planner snapshot.
+- Catalogue matching: request-scoped matching of customer-owned products to Discovery or known destinations.
 - Verified Search: asynchronous provider-backed search for selected opportunities.
 - Search results and details: canonical verified travel-result retrieval.
 - Usage: allowances, consumption, concurrency and scopes.

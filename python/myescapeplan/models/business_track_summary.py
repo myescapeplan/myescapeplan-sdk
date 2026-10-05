@@ -38,8 +38,8 @@ class BusinessTrackSummary(BaseModel):
     @field_validator('status')
     def status_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['available', 'unavailable', 'partial', 'failed', 'not_requested', 'pending']):
-            raise ValueError("must be one of enum values ('available', 'unavailable', 'partial', 'failed', 'not_requested', 'pending')")
+        if value not in set(['available', 'unavailable', 'partial', 'failed', 'not_requested', 'pending', 'not_confirmed']):
+            raise ValueError("must be one of enum values ('available', 'unavailable', 'partial', 'failed', 'not_requested', 'pending', 'not_confirmed')")
         return value
 
     model_config = ConfigDict(

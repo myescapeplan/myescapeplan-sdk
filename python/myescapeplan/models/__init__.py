@@ -17,6 +17,7 @@ from myescapeplan.models.affiliate_link import AffiliateLink
 from myescapeplan.models.airport_ref import AirportRef
 from myescapeplan.models.amenity_type import AmenityType
 from myescapeplan.models.budget_amount import BudgetAmount
+from myescapeplan.models.budget_min_amount import BudgetMinAmount
 from myescapeplan.models.business_api_error import BusinessApiError
 from myescapeplan.models.business_concurrency_usage import BusinessConcurrencyUsage
 from myescapeplan.models.business_date_option import BusinessDateOption
@@ -39,6 +40,12 @@ from myescapeplan.models.business_usage_counter import BusinessUsageCounter
 from myescapeplan.models.business_usage_period import BusinessUsagePeriod
 from myescapeplan.models.business_usage_response import BusinessUsageResponse
 from myescapeplan.models.business_verified_search_usage import BusinessVerifiedSearchUsage
+from myescapeplan.models.catalogue_destination_matches import CatalogueDestinationMatches
+from myescapeplan.models.catalogue_item import CatalogueItem
+from myescapeplan.models.catalogue_item_match import CatalogueItemMatch
+from myescapeplan.models.catalogue_match_request import CatalogueMatchRequest
+from myescapeplan.models.catalogue_match_response import CatalogueMatchResponse
+from myescapeplan.models.catalogue_ref import CatalogueRef
 from myescapeplan.models.date_option_component_summary import DateOptionComponentSummary
 from myescapeplan.models.date_option_kind import DateOptionKind
 from myescapeplan.models.date_range import DateRange
@@ -63,9 +70,11 @@ from myescapeplan.models.discovery_request import DiscoveryRequest
 from myescapeplan.models.discovery_response import DiscoveryResponse
 from myescapeplan.models.discovery_search_inputs_available import DiscoverySearchInputsAvailable
 from myescapeplan.models.discovery_usage import DiscoveryUsage
+from myescapeplan.models.event_detail import EventDetail
 from myescapeplan.models.flight_detail import FlightDetail
 from myescapeplan.models.image_attribution import ImageAttribution
 from myescapeplan.models.image_object import ImageObject
+from myescapeplan.models.money import Money
 from myescapeplan.models.price_basis import PriceBasis
 from myescapeplan.models.price_insight import PriceInsight
 from myescapeplan.models.price_insight_kind import PriceInsightKind
@@ -74,6 +83,7 @@ from myescapeplan.models.price_insight_source import PriceInsightSource
 from myescapeplan.models.provider_url import ProviderUrl
 from myescapeplan.models.slim_standardized_flight_offer import SlimStandardizedFlightOffer
 from myescapeplan.models.slim_standardized_stay import SlimStandardizedStay
+from myescapeplan.models.standardized_event import StandardizedEvent
 from myescapeplan.models.standardized_flight_leg import StandardizedFlightLeg
 from myescapeplan.models.standardized_flight_segment import StandardizedFlightSegment
 from myescapeplan.models.standardized_stay_offer import StandardizedStayOffer
@@ -85,6 +95,9 @@ from myescapeplan.models.stay_review_topic import StayReviewTopic
 from myescapeplan.models.stay_transport_option import StayTransportOption
 from myescapeplan.models.structured_flight import StructuredFlight
 from myescapeplan.models.structured_stay import StructuredStay
+from myescapeplan.models.trip_anchor import TripAnchor
+from myescapeplan.models.trip_anchor_destination import TripAnchorDestination
+from myescapeplan.models.trip_anchor_presence import TripAnchorPresence
 from myescapeplan.models.trip_price import TripPrice
 from myescapeplan.models.weather_hint import WeatherHint
 from myescapeplan.models.weather_observation import WeatherObservation
