@@ -55,6 +55,21 @@ around them but does not discover or verify the external commitment. The default
 least one shared local date. V1 does not guarantee arrival before a specific
 clock time.
 
+TypeScript models OpenAPI `format: date` values as `Date`. For date-only trip
+anchors, construct them from an ISO calendar-date string so UTC serialization
+preserves the intended date:
+
+```ts
+const requiredPresence = {
+  startDate: new Date("2026-11-18"),
+  endDate: new Date("2026-11-18"),
+};
+```
+
+Avoid constructing a date-only value with local-midnight components such as
+`new Date(2026, 10, 18)`, because converting that value to UTC can change the
+calendar date in some time zones.
+
 ## Discovery and verification
 
 Discovery is the planning step and makes no live supplier calls. Use Verified
